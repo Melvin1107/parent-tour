@@ -26,7 +26,8 @@
         
         <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600 space-y-1">
           <div>📍 <strong>活動地點：</strong>宜蘭縣頭城休閒農場</div>
-          <div>🕒 <strong>行程說明：</strong>10:00-11:00 農特產品DIY ｜ 11:00-12:00 葉拓DIY ｜ 12:00-13:00 美味鄉土饗宴 ｜ 13:30-15:00 親近大自然</div>
+          <div>🕒 <strong>行程說明：</strong>平日裡，我們忙著工作，孩子忙著上課，連好好說說話，都常常得等「有空再說」。這次頭城農場親子遊，我們特別把行程安排得輕鬆一些，留一點時間給風景，也留一點時間給彼此。讓孩子看看小動物、自在探索，讓大人暫時放下忙碌，在綠意裡喘口氣；也讓平常只在校門口點頭的家長，有機會坐下來聊聊，從打招呼變成認識。希望這一天，大家帶回家的除了照片，還有孩子分享的新發現、幾位新朋友，以及一家人一起慢下來的好心情。</div>
+          <div class="pt-1">🕒 <strong>當日流程：</strong>10:00-11:00 農特產品DIY ｜ 11:00-12:00 葉拓DIY ｜ 12:00-13:00 美味鄉土饗宴 ｜ 13:30-15:00 親近大自然</div>
           <div>💰 <strong>收費標準：</strong>2歲以下免費 ｜ 3-6歲 5折 ｜ 7-12歲 8折 ｜ 13歲以上大人全票 (NT$ 1,000)</div>
           <div class="text-amber-700">⚠️ 請確實填寫身分證字號與出生年月日，以利辦理 300 萬公共責任意外險。</div>
         </div>
@@ -61,7 +62,7 @@
               <input type="tel" id="parentPhone" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
-              <label class="block mb-1 font-medium">電子信箱 (收執收據用) *</label>
+              <label class="block mb-1 font-medium">電子信箱 (接收報名收據用) *</label>
               <input type="email" id="parentEmail" placeholder="例：example@gmail.com" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
@@ -156,19 +157,19 @@
   <div id="receiptModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
       <div class="bg-emerald-600 p-4 text-white text-center">
-        <h3 class="text-xl font-bold">🎉 報名登記完成</h3>
-        <p class="text-xs text-emerald-100 mt-1">收據明細已同步寄至您的電子信箱</p>
+        <h3 class="text-xl font-bold">🎉 報名登記已完成</h3>
+        <p class="text-xs text-emerald-100 mt-1">完整收據已同步寄送至您的電子信箱！</p>
       </div>
 
       <div class="p-6 overflow-y-auto space-y-4 text-sm">
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-center">
-          <div class="text-xs text-amber-800">您的報名編號 (查詢與修改憑據)</div>
-          <div id="modalSerial" class="text-3xl font-extrabold text-amber-600 mt-0.5">---</div>
-          <div class="text-[11px] text-amber-700 mt-1">※ 若資料需更動，請向工作人員告知此編號，由人員手動為您修改。</div>
+          <div class="text-xs text-amber-800">查詢與修正編號</div>
+          <div class="text-xl font-bold text-amber-700 mt-1">請查閱信箱確認收據</div>
+          <div class="text-[11px] text-amber-600 mt-1">※ 若資料需更動，請向工作人員告知收據上的報名編號，工作人員將為您修改。</div>
         </div>
 
         <div>
-          <div class="font-bold text-slate-700 mb-2">📋 填寫資料收執聯：</div>
+          <div class="font-bold text-slate-700 mb-2">📋 本次報名內容收執存根：</div>
           <div id="modalSummary" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs leading-relaxed font-mono whitespace-pre-wrap text-slate-700"></div>
         </div>
       </div>
@@ -181,10 +182,12 @@
   </div>
 
   <script>
+    // === 設定 ===
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3sIZ5oYH7U_X4V-P8qwpXwf-nt2aPKSwWj9onWfg5N266PqLBQIwmTy-BP1Sydvj6/exec";
     const BASE_ADULT_PRICE = 1000;
     const EVENT_DATE = new Date("2026-11-21");
 
+    // 台灣身分證字號檢核
     function validateTwID(id) {
       if (!/^[A-Z][12]\d{8}$/.test(id)) return false;
       const letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
@@ -194,6 +197,7 @@
       return digits.reduce((sum, d, i) => sum + d * w[i], 0) % 10 === 0;
     }
 
+    // 計算 11/21 活動當日實歲
     function calculateAge(dobStr) {
       if (!dobStr) return 30;
       const dob = new Date(dobStr);
@@ -203,6 +207,7 @@
       return age;
     }
 
+    // 農場年齡費率標準
     function getFeeByDob(dobStr) {
       const age = calculateAge(dobStr);
       if (age < 2) return 0;
@@ -287,7 +292,7 @@
     });
 
     // 表單送出處理
-    document.getElementById('tourForm').addEventListener('submit', function(e) {
+    document.getElementById('tourForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       let idValid = true;
@@ -356,46 +361,34 @@
       btn.disabled = true;
       btn.innerText = "資料送出中，請稍候...";
 
-      // 利用 JSONP 跨域並接收回傳流水號
-      const callbackName = "handleGASResponse_" + Date.now();
-      window[callbackName] = function(res) {
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        // 成功送出後彈出確認收據存根
+        showReceiptModal(payload);
+        document.getElementById('tourForm').reset();
+        document.getElementById('othersContainer').innerHTML = '';
+        otherCount = 0;
+        recalculate();
+      } catch (err) {
+        alert('送出失敗，請檢查網路連線。');
+      } finally {
         btn.disabled = false;
         btn.innerText = "確認報名送出";
-
-        if (res.result === "success") {
-          showReceiptModal(res.serial, payload);
-          document.getElementById('tourForm').reset();
-          document.getElementById('othersContainer').innerHTML = '';
-          otherCount = 0;
-          recalculate();
-        } else {
-          alert('報名送出失敗：' + (res.message || '未知錯誤'));
-        }
-        delete window[callbackName];
-        document.body.removeChild(script);
-      };
-
-      const script = document.createElement('script');
-      script.src = `${SCRIPT_URL}?callback=${callbackName}&data=${encodeURIComponent(JSON.stringify(payload))}`;
-      script.onerror = function() {
-        btn.disabled = false;
-        btn.innerText = "確認報名送出";
-        alert('連線失敗，請檢查網路連線。');
-        delete window[callbackName];
-        document.body.removeChild(script);
-      };
-      document.body.appendChild(script);
+      }
     });
 
     // 彈窗顯示收據明細
-    function showReceiptModal(serial, data) {
-      document.getElementById('modalSerial').innerText = serial;
-      
+    function showReceiptModal(data) {
       let summary = `【活動】11/21 頭城農場親子遊\n`;
-      summary += `【報名編號】${serial}\n`;
       summary += `【家長聯絡人】${data.parentName} (${data.parentRelation}) ｜ 手機：${data.parentPhone}\n`;
+      summary += `【收據電子信箱】${data.parentEmail}\n`;
       summary += `【身分證/生日】${data.parentId} ｜ ${data.parentDob}\n`;
-      summary += `【電子信箱】${data.parentEmail}\n`;
       summary += `------------------------------------\n`;
       summary += `【學生 1】${data.student1Name} (${data.student1Class}) ｜ ${data.student1Id} ｜ ${data.student1Dob}\n`;
       
@@ -409,7 +402,7 @@
       summary += `------------------------------------\n`;
       summary += `【參加總人數】${data.totalHeadcount} 人\n`;
       summary += `【預估總費用】NT$ ${data.estimatedFee.toLocaleString()} 元\n`;
-      summary += `【飲食統計】${data.dietPreference}\n`;
+      summary += `【飲食習慣】${data.dietPreference}\n`;
       if (data.notes && data.notes !== "無") summary += `【備註】${data.notes}\n`;
 
       document.getElementById('modalSummary').innerText = summary;
@@ -425,7 +418,7 @@
     document.getElementById('copyBtn').addEventListener('click', () => {
       const text = document.getElementById('modalSummary').innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('報名明細已複製到剪貼簿！');
+        alert('報名收執資料已複製到剪貼簿！');
       });
     });
 
