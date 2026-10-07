@@ -122,21 +122,47 @@
         <!-- 其他同行親友 -->
         <section class="space-y-3">
           <div class="flex justify-between items-center">
-            <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">其他同行親友 (上限4位)</h2>
+            <div>
+              <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">其他同行親友 (最多4位)</h2>
+              <span class="text-xs text-slate-500 pl-2">保險用，每位均需填妥姓名、身分證字號與生日</span>
+            </div>
             <button type="button" id="addOtherBtn" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded transition">+ 新增親友</button>
           </div>
           <div id="othersContainer" class="space-y-3"></div>
         </section>
 
         <!-- 飲食與備註 -->
-        <section class="space-y-3 border-t pt-4 text-sm">
+        <section class="space-y-4 border-t pt-4 text-sm">
           <div>
-            <label class="block mb-1 font-medium">飲食習慣統計 *</label>
-            <input type="text" id="dietPreference" placeholder="例：2位全素、3位葷食" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            <label class="block mb-2 font-medium">飲食習慣統計 *（請勾選並填寫人數）</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 border p-3 rounded-lg">
+              
+              <!-- 葷食 -->
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="dietMeatCheck" checked class="w-4 h-4 text-emerald-600 rounded">
+                <label for="dietMeatCheck" class="text-sm font-medium w-14">葷食：</label>
+                <div class="flex items-center space-x-1">
+                  <input type="number" id="dietMeatCount" min="0" value="2" class="w-16 border rounded p-1 text-center text-sm outline-none focus:ring-1 focus:ring-emerald-500">
+                  <span class="text-xs text-slate-500">人</span>
+                </div>
+              </div>
+
+              <!-- 素食 -->
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="dietVegCheck" class="w-4 h-4 text-emerald-600 rounded">
+                <label for="dietVegCheck" class="text-sm font-medium w-14">素食：</label>
+                <div class="flex items-center space-x-1">
+                  <input type="number" id="dietVegCount" min="0" value="0" disabled class="w-16 border rounded p-1 text-center text-sm outline-none bg-slate-100 disabled:opacity-50">
+                  <span class="text-xs text-slate-500">人</span>
+                </div>
+              </div>
+
+            </div>
           </div>
+
           <div>
             <label class="block mb-1 font-medium">備註 (特殊體質、過敏等需求，非必填)</label>
-            <input type="text" id="notes" class="w-full border rounded p-2 outline-none">
+            <input type="text" id="notes" placeholder="無特殊需求可留空" class="w-full border rounded p-2 outline-none">
           </div>
         </section>
 
@@ -157,7 +183,6 @@
   <div id="receiptModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
       
-      <!-- 頂部大標題 -->
       <div class="bg-emerald-600 p-4 text-white text-center">
         <h3 class="text-xl font-bold">🎉 報名登記已成功送出</h3>
         <p class="text-xs text-emerald-100 mt-1">確認信已同步寄送至您的信箱，請留存查閱！</p>
@@ -235,8 +260,32 @@
 
       document.getElementById('displayCount').innerText = count;
       document.getElementById('displayFee').innerText = `NT$ ${totalFee.toLocaleString()}`;
+
+      // 若只有葷食勾選，自動將人數對齊
+      if (document.getElementById('dietMeatCheck').checked && !document.getElementById('dietVegCheck').checked) {
+        document.getElementById('dietMeatCount').value = count;
+      }
+
       return { count, totalFee };
     }
+
+    // 飲食習慣勾選連動
+    const meatCheck = document.getElementById('dietMeatCheck');
+    const meatInput = document.getElementById('dietMeatCount');
+    const vegCheck = document.getElementById('dietVegCheck');
+    const vegInput = document.getElementById('dietVegCount');
+
+    meatCheck.addEventListener('change', () => {
+      meatInput.disabled = !meatCheck.checked;
+      meatInput.classList.toggle('bg-slate-100', !meatCheck.checked);
+      if (!meatCheck.checked) meatInput.value = 0;
+    });
+
+    vegCheck.addEventListener('change', () => {
+      vegInput.disabled = !vegCheck.checked;
+      vegInput.classList.toggle('bg-slate-100', !vegCheck.checked);
+      if (!vegCheck.checked) vegInput.value = 0;
+    });
 
     document.getElementById('hasStudent2').addEventListener('change', (e) => {
       const box = document.getElementById('student2Box');
@@ -251,6 +300,7 @@
       recalculate();
     });
 
+    // 動態新增親友 (含姓名、身分證、生日完整區塊)
     let otherCount = 0;
     document.getElementById('addOtherBtn').addEventListener('click', () => {
       if (otherCount >= 4) {
@@ -262,17 +312,24 @@
       const div = document.createElement('div');
       div.className = 'other-person-card bg-slate-50 border p-3 rounded-lg relative space-y-2';
       div.innerHTML = `
-        <div class="flex justify-between items-center text-xs font-semibold text-slate-600">
+        <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
           <span>同行親友 ${otherCount}</span>
           <button type="button" class="remove-btn text-red-500 hover:underline">移除</button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-          <input type="text" placeholder="姓名 *" class="other-name border rounded p-1.5 text-xs outline-none" required>
           <div>
-            <input type="text" placeholder="身分證字號 *" maxlength="10" class="other-id border rounded p-1.5 text-xs uppercase w-full outline-none" required>
+            <label class="block text-[11px] text-slate-500 mb-0.5">姓名 *</label>
+            <input type="text" placeholder="親友姓名" class="other-name border rounded p-1.5 text-xs w-full outline-none" required>
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-0.5">身分證字號 *</label>
+            <input type="text" placeholder="身分證字號" maxlength="10" class="other-id border rounded p-1.5 text-xs uppercase w-full outline-none" required>
             <span class="text-xs text-red-500 hidden id-err">格式錯誤</span>
           </div>
-          <input type="date" class="other-dob calc-age border rounded p-1.5 text-xs outline-none" required>
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-0.5">出生日期 *</label>
+            <input type="date" class="other-dob calc-age border rounded p-1.5 text-xs w-full outline-none" required>
+          </div>
         </div>
       `;
 
@@ -295,6 +352,7 @@
     document.getElementById('tourForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
+      // 身分證檢驗
       let idValid = true;
       const idsToCheck = [
         { el: document.getElementById('parentId') },
@@ -325,6 +383,16 @@
         return;
       }
 
+      // 飲食習慣組合
+      const meatN = meatCheck.checked ? parseInt(meatInput.value || '0', 10) : 0;
+      const vegN = vegCheck.checked ? parseInt(vegInput.value || '0', 10) : 0;
+      if (meatN === 0 && vegN === 0) {
+        alert('請勾選並填寫飲食習慣人數（葷食或素食）。');
+        return;
+      }
+      const dietSummary = `葷食 ${meatN} 人 / 素食 ${vegN} 人`;
+
+      // 同行親友資料打包
       const othersData = [];
       document.querySelectorAll('.other-person-card').forEach((card, idx) => {
         const name = card.querySelector('.other-name').value;
@@ -335,7 +403,7 @@
 
       const { count, totalFee } = recalculate();
 
-      // 本地產出連續唯一的活動編號（如 001, 002... 基於 LocalStorage 遞增，並加時間後3碼防重）
+      // 本地產出連續唯一的活動編號（如 001, 002...）
       let currentSeq = parseInt(localStorage.getItem('tour_seq') || '0', 10) + 1;
       localStorage.setItem('tour_seq', currentSeq);
       const generatedSerial = ("000" + currentSeq).slice(-3);
@@ -359,7 +427,7 @@
         othersSummary: othersData.join('; '),
         totalHeadcount: count,
         estimatedFee: totalFee,
-        dietPreference: document.getElementById('dietPreference').value,
+        dietPreference: dietSummary,
         notes: document.getElementById('notes').value
       };
 
@@ -375,7 +443,7 @@
           body: JSON.stringify(payload)
         });
 
-        // 彈出收據確認視窗（顯示大字報名編號）
+        // 彈出收據確認視窗（大字報名編號）
         showReceiptModal(generatedSerial, payload);
         document.getElementById('tourForm').reset();
         document.getElementById('othersContainer').innerHTML = '';
@@ -389,7 +457,6 @@
       }
     });
 
-    // 彈窗顯示收據明細
     function showReceiptModal(serial, data) {
       document.getElementById('modalSerial').innerText = serial;
 
@@ -418,16 +485,14 @@
       document.getElementById('receiptModal').classList.remove('hidden');
     }
 
-    // 關閉彈窗
     document.getElementById('closeModalBtn').addEventListener('click', () => {
       document.getElementById('receiptModal').classList.add('hidden');
     });
 
-    // 複製明細
     document.getElementById('copyBtn').addEventListener('click', () => {
       const text = document.getElementById('modalSummary').innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('報名收執資料已複製到剪貼簿！');
+        alert('報名收據明細已成功複製！');
       });
     });
 
