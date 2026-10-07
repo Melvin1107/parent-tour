@@ -62,8 +62,8 @@
               <input type="tel" id="parentPhone" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
-              <label class="block mb-1 font-medium">電子信箱 (接收報名收據用) *</label>
-              <input type="email" id="parentEmail" placeholder="例：example@gmail.com" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+              <label class="block mb-1 font-medium">電子信箱 (接收收據) *</label>
+              <input type="email" id="parentEmail" placeholder="example@gmail.com" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
         </section>
@@ -158,18 +158,18 @@
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
       <div class="bg-emerald-600 p-4 text-white text-center">
         <h3 class="text-xl font-bold">🎉 報名登記已完成</h3>
-        <p class="text-xs text-emerald-100 mt-1">完整收據已同步寄送至您的電子信箱！</p>
+        <p class="text-xs text-emerald-100 mt-1">收據明細已同步寄至您的信箱！</p>
       </div>
 
       <div class="p-6 overflow-y-auto space-y-4 text-sm">
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-center">
-          <div class="text-xs text-amber-800">查詢與修正編號</div>
-          <div class="text-xl font-bold text-amber-700 mt-1">請查閱信箱確認收據</div>
-          <div class="text-[11px] text-amber-600 mt-1">※ 若資料需更動，請向工作人員告知收據上的報名編號，工作人員將為您修改。</div>
+          <div class="text-xs text-amber-800">您的報名編號</div>
+          <div id="modalSerial" class="text-3xl font-extrabold text-amber-600 mt-0.5">001</div>
+          <div class="text-[11px] text-amber-700 mt-1">※ 若資料有任何更動，請向工作人員告知此編號以進行修改。</div>
         </div>
 
         <div>
-          <div class="font-bold text-slate-700 mb-2">📋 本次報名內容收執存根：</div>
+          <div class="font-bold text-slate-700 mb-2">📋 填寫收執存根：</div>
           <div id="modalSummary" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs leading-relaxed font-mono whitespace-pre-wrap text-slate-700"></div>
         </div>
       </div>
@@ -182,12 +182,10 @@
   </div>
 
   <script>
-    // === 設定 ===
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3sIZ5oYH7U_X4V-P8qwpXwf-nt2aPKSwWj9onWfg5N266PqLBQIwmTy-BP1Sydvj6/exec";
     const BASE_ADULT_PRICE = 1000;
     const EVENT_DATE = new Date("2026-11-21");
 
-    // 台灣身分證字號檢核
     function validateTwID(id) {
       if (!/^[A-Z][12]\d{8}$/.test(id)) return false;
       const letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
@@ -197,7 +195,6 @@
       return digits.reduce((sum, d, i) => sum + d * w[i], 0) % 10 === 0;
     }
 
-    // 計算 11/21 活動當日實歲
     function calculateAge(dobStr) {
       if (!dobStr) return 30;
       const dob = new Date(dobStr);
@@ -207,7 +204,6 @@
       return age;
     }
 
-    // 農場年齡費率標準
     function getFeeByDob(dobStr) {
       const age = calculateAge(dobStr);
       if (age < 2) return 0;
@@ -335,7 +331,11 @@
 
       const { count, totalFee } = recalculate();
 
+      // 前端生成時間戳記後3碼作為本地序號備用，後端試算表亦會寫入流水號
+      const clientSerial = ("000" + (Math.floor(Date.now() / 1000) % 1000)).slice(-3);
+
       const payload = {
+        serial: clientSerial,
         parentName: document.getElementById('parentName').value,
         parentRelation: document.getElementById('parentRelation').value,
         parentPhone: document.getElementById('parentPhone').value,
@@ -369,8 +369,8 @@
           body: JSON.stringify(payload)
         });
 
-        // 成功送出後彈出確認收據存根
-        showReceiptModal(payload);
+        // 彈出收據確認視窗
+        showReceiptModal(clientSerial, payload);
         document.getElementById('tourForm').reset();
         document.getElementById('othersContainer').innerHTML = '';
         otherCount = 0;
@@ -384,10 +384,13 @@
     });
 
     // 彈窗顯示收據明細
-    function showReceiptModal(data) {
+    function showReceiptModal(serial, data) {
+      document.getElementById('modalSerial').innerText = serial;
+
       let summary = `【活動】11/21 頭城農場親子遊\n`;
+      summary += `【報名編號】${serial}\n`;
       summary += `【家長聯絡人】${data.parentName} (${data.parentRelation}) ｜ 手機：${data.parentPhone}\n`;
-      summary += `【收據電子信箱】${data.parentEmail}\n`;
+      summary += `【收據信箱】${data.parentEmail}\n`;
       summary += `【身分證/生日】${data.parentId} ｜ ${data.parentDob}\n`;
       summary += `------------------------------------\n`;
       summary += `【學生 1】${data.student1Name} (${data.student1Class}) ｜ ${data.student1Id} ｜ ${data.student1Dob}\n`;
@@ -418,7 +421,7 @@
     document.getElementById('copyBtn').addEventListener('click', () => {
       const text = document.getElementById('modalSummary').innerText;
       navigator.clipboard.writeText(text).then(() => {
-        alert('報名收執資料已複製到剪貼簿！');
+        alert('報名明細已複製到剪貼簿！');
       });
     });
 
