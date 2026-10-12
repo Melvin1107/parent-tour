@@ -24,25 +24,40 @@
         </div>
         <h1 class="text-2xl font-bold text-slate-900 mt-2">頭城農場一日遊體驗之旅</h1>
         
-        <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600 space-y-1">
+        <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600 space-y-2">
           <div>📍 <strong>活動地點：</strong>宜蘭縣頭城休閒農場</div>
-          <div>🕒 <strong>行程說明：</strong>
-  <p class="mt-1 leading-relaxed text-slate-600">
-    平日裡，我們忙著工作，孩子忙著上課，連好好說說話，都常常得等「有空再說」。這次頭城農場親子遊，我們特別把行程安排得輕鬆一些，留一點時間給風景，也留一點時間給彼此。讓孩子看看小動物、自在探索，讓大人暫時放下忙碌，在綠意裡喘口氣；也讓平常只在校門口點頭的家長，有機會坐下來聊聊，從打招呼變成認識。希望這一天，大家帶回家的除了照片，還有孩子分享的新發現、幾位新朋友，以及一家人一起慢下來的好心情。
-  </p>
-</div>
+          
+          <div>
+            <strong>🕒 行程說明：</strong>
+            <p class="mt-1 leading-relaxed text-slate-600">
+              平日裡，我們忙著工作，孩子忙著上課，連好好說說話，都常常得等「有空再說」。這次頭城農場親子遊，我們特別把行程安排得輕鬆一些，留一點時間給風景，也留一點時間給彼此。讓孩子看看小動物、自在探索，讓大人暫時放下忙碌，在綠意裡喘口氣；也讓平常只在校門口點頭的家長，有機會坐下來聊聊，從打招呼變成認識。希望這一天，大家帶回家的除了照片，還有孩子分享的新發現、幾位新朋友，以及一家人一起慢下來的好心情。
+            </p>
+          </div>
 
-<div class="pt-2">
-  <strong>🕒 當日流程：</strong>
-  <ul class="mt-1 pl-4 space-y-1 list-disc text-slate-600">
-    <li>10:00-11:00 農特產品DIY</li>
-    <li>11:00-12:00 葉拓DIY</li>
-    <li>12:00-13:00 美味鄉土饗宴</li>
-    <li>13:30-15:00 親近大自然</li>
-  </ul>
-</div>
-          <div>💰 <strong>收費標準：</strong>2歲以下免費 ｜ 3-6歲 5折 ｜ 7-12歲 8折 ｜ 13歲以上大人全票 (NT$ 1,000)</div>
-          <div class="text-amber-700">⚠️ 請確實填寫身分證字號與出生年月日，以利辦理 300 萬公共責任意外險。</div>
+          <div class="pt-1">
+            <strong>🕒 當日流程：</strong>
+            <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <li>08:00-08:30 校門口集合出發</li>
+              <li>10:00-11:00 農特產品DIY</li>
+              <li>11:00-12:00 葉拓DIY</li>
+              <li>12:00-13:00 美味鄉土饗宴</li>
+              <li>13:30-15:00 親近大自然</li>
+              <li>15:30-17:00 回到溫暖的家</li>
+            </ul>
+          </div>
+
+          <div class="pt-1">
+            <strong>💰 收費標準（依出遊日當天實歲計算）：</strong>
+            <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <li>大人（13歲以上，含國中生兄姐）：NT$ 1,420</li>
+              <li>7-12歲：NT$ 1,300</li>
+              <li>3-6歲：NT$ 500</li>
+              <li>3歲以下：免費不收費</li>
+              <li>70歲以上（敬老優惠，歡迎阿公阿嬤一同參加）：NT$ 1,300</li>
+            </ul>
+          </div>
+
+          <div class="text-amber-700 font-medium">⚠️ 請確實填寫身分證字號與出生年月日，以利辦理 300 萬公共責任意外險。</div>
         </div>
       </header>
 
@@ -241,7 +256,7 @@
         <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
             <div class="text-xs text-slate-600">總參加人數：<span id="displayCount" class="font-bold text-emerald-800 text-base">2</span> 人</div>
-            <div class="text-xs text-slate-600">預估費用總計：<span id="displayFee" class="font-bold text-emerald-800 text-lg">NT$ 2,000</span></div>
+            <div class="text-xs text-slate-600">預估費用總計：<span id="displayFee" class="font-bold text-emerald-800 text-lg">NT$ 2,720</span></div>
           </div>
           <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2 rounded-lg transition shadow">確認報名送出</button>
         </div>
@@ -283,7 +298,6 @@
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3sIZ5oYH7U_X4V-P8qwpXwf-nt2aPKSwWj9onWfg5N266PqLBQIwmTy-BP1Sydvj6/exec";
-    const BASE_ADULT_PRICE = 1000;
     const EVENT_DATE = new Date("2026-11-21");
 
     function validateTwID(id) {
@@ -295,8 +309,9 @@
       return digits.reduce((sum, d, i) => sum + d * w[i], 0) % 10 === 0;
     }
 
+    // 計算出遊日當天實歲
     function calculateAge(dobStr) {
-      if (!dobStr) return 30;
+      if (!dobStr) return 30; // 預設成人
       const dob = new Date(dobStr);
       let age = EVENT_DATE.getFullYear() - dob.getFullYear();
       const m = EVENT_DATE.getMonth() - dob.getMonth();
@@ -304,12 +319,14 @@
       return age;
     }
 
+    // 最新計費公式
     function getFeeByDob(dobStr) {
       const age = calculateAge(dobStr);
-      if (age < 2) return 0;
-      if (age <= 6) return Math.round(BASE_ADULT_PRICE * 0.5);
-      if (age <= 12) return Math.round(BASE_ADULT_PRICE * 0.8);
-      return BASE_ADULT_PRICE;
+      if (age < 3) return 0;           // 3歲以下免費
+      if (age <= 6) return 500;        // 3-6歲 $500
+      if (age <= 12) return 1300;      // 7-12歲 $1,300
+      if (age >= 70) return 1300;      // 70歲以上敬老 $1,300
+      return 1420;                     // 13-69歲大人 $1,420
     }
 
     const meatCheck = document.getElementById('dietMeatCheck');
