@@ -110,16 +110,16 @@
 
     </form>
 
-    <!-- 繳費收據預覽 (依圖案設計：收執聯 + 存根聯) -->
+    <!-- 繳費收據預覽 (雙聯樣式) -->
     <div id="receiptSection" class="hidden space-y-4 pt-4 border-t">
       <div class="bg-white border-2 border-slate-700 p-6 rounded-lg shadow space-y-6">
         
         <!-- 收執聯 -->
         <div class="border-b-2 border-dashed border-slate-400 pb-6 space-y-4">
-          <h2 class="text-xl font-bold text-center tracking-widest text-slate-900">112年度忠孝國小親子遊收據</h2>
+          <h2 class="text-xl font-bold text-center tracking-widest text-slate-900">115年度忠孝國小親子遊收據</h2>
           <div class="text-base space-y-3 pt-2">
             <div>
-              茲收到 <span id="rcpStudent1" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[120px] text-center"></span> 同學報名112年親子遊共 <span id="rcpCount1" class="font-bold border-b border-slate-700 px-3 inline-block min-w-[50px] text-center"></span> 位
+              茲收到 <span id="rcpStudent1" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[120px] text-center"></span> 同學報名115年親子遊共 <span id="rcpCount1" class="font-bold border-b border-slate-700 px-3 inline-block min-w-[50px] text-center"></span> 位
             </div>
             <div>
               金額 <span id="rcpFee1" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[160px] text-center text-emerald-700"></span> 元整
@@ -133,10 +133,10 @@
 
         <!-- 存根聯 -->
         <div class="space-y-4">
-          <h2 class="text-xl font-bold text-center tracking-widest text-slate-900">112年度忠孝國小親子遊收據</h2>
+          <h2 class="text-xl font-bold text-center tracking-widest text-slate-900">115年度忠孝國小親子遊收據</h2>
           <div class="text-base space-y-3 pt-2">
             <div>
-              茲收到 <span id="rcpStudent2" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[120px] text-center"></span> 同學報名112年親子遊共 <span id="rcpCount2" class="font-bold border-b border-slate-700 px-3 inline-block min-w-[50px] text-center"></span> 位
+              茲收到 <span id="rcpStudent2" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[120px] text-center"></span> 同學報名115年親子遊共 <span id="rcpCount2" class="font-bold border-b border-slate-700 px-3 inline-block min-w-[50px] text-center"></span> 位
             </div>
             <div>
               金額 <span id="rcpFee2" class="font-bold border-b border-slate-700 px-4 inline-block min-w-[160px] text-center text-emerald-700"></span> 元整
@@ -163,7 +163,6 @@
 
     let currentData = null;
 
-    // 年齡與計費
     function calculateAge(dobStr) {
       if (!dobStr) return 30;
       const dob = new Date(dobStr);
@@ -182,7 +181,7 @@
       return 1420;
     }
 
-// 查詢按鈕改用標準 fetch (自動處理 302 重導向)
+    // 透過 POST 發送查詢請求（不再受 CORS GET 攔截）
     document.getElementById('searchBtn').addEventListener('click', async () => {
       const q = document.getElementById('queryInput').value.trim();
       const msg = document.getElementById('searchMsg');
@@ -198,7 +197,11 @@
       btn.disabled = true;
 
       try {
-        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(q)}`);
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: "query", query: q })
+        });
         const res = await response.json();
 
         if (res.result === "success") {
@@ -209,7 +212,7 @@
           msg.classList.remove('hidden');
         }
       } catch (err) {
-        msg.innerText = "查詢失敗，請重新整理後再試一次。";
+        msg.innerText = "連線失敗，請檢查網路連線後重試。";
         msg.classList.remove('hidden');
       } finally {
         btn.innerText = "查詢資料";
@@ -217,7 +220,6 @@
       }
     });
 
-    // 渲染資料進表單
     function renderForm(d) {
       document.getElementById('displaySerial').innerText = d.serial;
       document.getElementById('displayPayStatus').innerText = d.payStatus;
@@ -229,7 +231,7 @@
       document.getElementById('parentId').value = d.parentId || "";
       document.getElementById('parentDob').value = d.parentDob || "";
 
-      // 學生列表 (最多 4 位)
+      // 渲染學生
       const sWrapper = document.getElementById('studentsWrapper');
       sWrapper.innerHTML = "";
       for (let i = 1; i <= 4; i++) {
@@ -259,7 +261,7 @@
         }
       }
 
-      // 親友列表 (最多 4 位)
+      // 渲染親友
       const oWrapper = document.getElementById('othersWrapper');
       oWrapper.innerHTML = "";
       for (let i = 1; i <= 4; i++) {
@@ -288,7 +290,6 @@
         oWrapper.innerHTML = `<div class="text-xs text-slate-400">無同行親友</div>`;
       }
 
-      // 解析飲食習慣 (例如 "葷食 2 人 / 素食 0 人")
       const dietStr = d.dietPreference || "";
       const mMatch = dietStr.match(/葷食\s*(\d+)/);
       const vMatch = dietStr.match(/素食\s*(\d+)/);
@@ -300,7 +301,6 @@
       recalcTotal();
     }
 
-    // 動態重新核算總人數與總金額
     function recalcTotal() {
       let count = 1;
       let fee = getFeeByDob(document.getElementById('parentDob').value);
@@ -324,7 +324,6 @@
       document.getElementById('displayCount').innerText = count;
       document.getElementById('displayFee').innerText = `NT$ ${fee.toLocaleString()}`;
 
-      // 檢查飲食總數
       const m = parseInt(document.getElementById('meatCount').value || '0', 10);
       const v = parseInt(document.getElementById('vegCount').value || '0', 10);
       const statusText = document.getElementById('dietStatusText');
@@ -352,6 +351,7 @@
       const { count, fee, m, v } = recalcTotal();
 
       const payload = {
+        action: "pay",
         rowIndex: currentData.rowIndex,
         serialNumber: currentData.serial,
         parentName: document.getElementById('parentName').value.trim(),
@@ -395,7 +395,6 @@
           body: JSON.stringify(payload)
         });
 
-        // 渲染收據並呈現
         const sName = payload.student1Name;
         document.getElementById('rcpStudent1').innerText = sName;
         document.getElementById('rcpStudent2').innerText = sName;
