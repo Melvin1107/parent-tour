@@ -42,7 +42,7 @@
               <li>10:00       享用迎賓點心</li>
               <li>10:00-11:00 農特產品DIY</li>
               <li>11:00-12:00 葉拓DIY</li>
-              <li>12:00-13:00 美味鄉土饗宴（自助式中式午餐</li>
+              <li>12:00-13:00 美味鄉土饗宴（自助式中式午餐）</li>
               <li>13:30-15:00 頭城農場園區生態導覽</li>
               <li>15:00-15:30 湖岸物語</li>
               <li>15:30       拍團體照</li>
@@ -260,7 +260,7 @@
         <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
             <div class="text-xs text-slate-600">總參加人數：<span id="displayCount" class="font-bold text-emerald-800 text-base">2</span> 人</div>
-            <div class="text-xs text-slate-600">預估費用總計：<span id="displayFee" class="font-bold text-emerald-800 text-lg">NT$ 2,720</span></div>
+            <div class="text-xs text-slate-600">預估費用總計：<span id="displayFee" class="font-bold text-emerald-800 text-lg">NT$ 2,320</span></div>
           </div>
           <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2 rounded-lg transition shadow">確認報名送出</button>
         </div>
@@ -313,9 +313,9 @@
       return digits.reduce((sum, d, i) => sum + d * w[i], 0) % 10 === 0;
     }
 
-    // 計算出遊日當天實歲
-    function calculateAge(dobStr) {
-      if (!dobStr) return 30; // 預設成人
+    // 計算出遊日當天實歲，未填時傳入 defaultAge
+    function calculateAge(dobStr, defaultAge = 35) {
+      if (!dobStr) return defaultAge;
       const dob = new Date(dobStr);
       let age = EVENT_DATE.getFullYear() - dob.getFullYear();
       const m = EVENT_DATE.getMonth() - dob.getMonth();
@@ -323,14 +323,14 @@
       return age;
     }
 
-    // 最新計費公式
-    function getFeeByDob(dobStr) {
-      const age = calculateAge(dobStr);
+    // 最新計費標準
+    function getFeeByDob(dobStr, defaultAge = 35) {
+      const age = calculateAge(dobStr, defaultAge);
       if (age < 3) return 0;           // 3歲以下免費
-      if (age <= 6) return 500;        // 3-6歲 $500
-      if (age <= 12) return 1300;      // 7-12歲 $1,300
+      if (age <= 6) return 300;        // 3-6歲 $300
+      if (age <= 12) return 1100;      // 7-12歲 $1,100
       if (age >= 70) return 1300;      // 70歲以上敬老 $1,300
-      return 1420;                     // 13-69歲大人 $1,420
+      return 1220;                     // 13-69歲大人 $1,220
     }
 
     const meatCheck = document.getElementById('dietMeatCheck');
@@ -359,34 +359,35 @@
 
     function recalculate() {
       let count = 1;
-      let totalFee = getFeeByDob(document.getElementById('parentDob').value);
+      // 家長未填預設 35 歲 -> $1,220
+      let totalFee = getFeeByDob(document.getElementById('parentDob').value, 35);
 
-      // 學生 1
+      // 學生 1（必填）未填預設 10 歲 -> $1,100
       count += 1;
-      totalFee += getFeeByDob(document.getElementById('student1Dob').value);
+      totalFee += getFeeByDob(document.getElementById('student1Dob').value, 10);
 
       // 學生 2
       if (document.getElementById('hasStudent2').checked) {
         count += 1;
-        totalFee += getFeeByDob(document.getElementById('student2Dob').value);
+        totalFee += getFeeByDob(document.getElementById('student2Dob').value, 10);
       }
 
       // 學生 3
       if (document.getElementById('hasStudent3').checked) {
         count += 1;
-        totalFee += getFeeByDob(document.getElementById('student3Dob').value);
+        totalFee += getFeeByDob(document.getElementById('student3Dob').value, 10);
       }
 
       // 學生 4
       if (document.getElementById('hasStudent4').checked) {
         count += 1;
-        totalFee += getFeeByDob(document.getElementById('student4Dob').value);
+        totalFee += getFeeByDob(document.getElementById('student4Dob').value, 10);
       }
 
-      // 同行親友
+      // 同行親友未填預設 35 歲 -> $1,220
       document.querySelectorAll('.other-person-card').forEach(card => {
         count += 1;
-        totalFee += getFeeByDob(card.querySelector('.other-dob').value);
+        totalFee += getFeeByDob(card.querySelector('.other-dob').value, 35);
       });
 
       document.getElementById('displayCount').innerText = count;
@@ -549,28 +550,28 @@
 
       const payload = {
         serialNumber: generatedSerial,
-        parentName: document.getElementById('parentName').value,
-        parentRelation: document.getElementById('parentRelation').value,
-        parentPhone: document.getElementById('parentPhone').value,
-        parentEmail: document.getElementById('parentEmail').value,
-        parentId: document.getElementById('parentId').value.toUpperCase(),
+        parentName: document.getElementById('parentName').value.trim(),
+        parentRelation: document.getElementById('parentRelation').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        parentEmail: document.getElementById('parentEmail').value.trim(),
+        parentId: document.getElementById('parentId').value.trim().toUpperCase(),
         parentDob: document.getElementById('parentDob').value,
-        student1Name: document.getElementById('student1Name').value,
-        student1Class: document.getElementById('student1Class').value,
-        student1Id: document.getElementById('student1Id').value.toUpperCase(),
+        student1Name: document.getElementById('student1Name').value.trim(),
+        student1Class: document.getElementById('student1Class').value.trim(),
+        student1Id: document.getElementById('student1Id').value.trim().toUpperCase(),
         student1Dob: document.getElementById('student1Dob').value,
-        student2Name: document.getElementById('student2Name').value,
-        student2Class: document.getElementById('student2Class').value,
-        student2Id: document.getElementById('student2Id').value.toUpperCase(),
-        student2Dob: document.getElementById('student2Dob').value,
-        student3Name: document.getElementById('student3Name').value,
-        student3Class: document.getElementById('student3Class').value,
-        student3Id: document.getElementById('student3Id').value.toUpperCase(),
-        student3Dob: document.getElementById('student3Dob').value,
-        student4Name: document.getElementById('student4Name').value,
-        student4Class: document.getElementById('student4Class').value,
-        student4Id: document.getElementById('student4Id').value.toUpperCase(),
-        student4Dob: document.getElementById('student4Dob').value,
+        student2Name: document.getElementById('hasStudent2').checked ? document.getElementById('student2Name').value.trim() : "無",
+        student2Class: document.getElementById('hasStudent2').checked ? document.getElementById('student2Class').value.trim() : "無",
+        student2Id: document.getElementById('hasStudent2').checked ? document.getElementById('student2Id').value.trim().toUpperCase() : "無",
+        student2Dob: document.getElementById('hasStudent2').checked ? document.getElementById('student2Dob').value : "無",
+        student3Name: document.getElementById('hasStudent3').checked ? document.getElementById('student3Name').value.trim() : "無",
+        student3Class: document.getElementById('hasStudent3').checked ? document.getElementById('student3Class').value.trim() : "無",
+        student3Id: document.getElementById('hasStudent3').checked ? document.getElementById('student3Id').value.trim().toUpperCase() : "無",
+        student3Dob: document.getElementById('hasStudent3').checked ? document.getElementById('student3Dob').value : "無",
+        student4Name: document.getElementById('hasStudent4').checked ? document.getElementById('student4Name').value.trim() : "無",
+        student4Class: document.getElementById('hasStudent4').checked ? document.getElementById('student4Class').value.trim() : "無",
+        student4Id: document.getElementById('hasStudent4').checked ? document.getElementById('student4Id').value.trim().toUpperCase() : "無",
+        student4Dob: document.getElementById('hasStudent4').checked ? document.getElementById('student4Dob').value : "無",
         other1: otherObjects[0],
         other2: otherObjects[1],
         other3: otherObjects[2],
@@ -578,7 +579,7 @@
         totalHeadcount: count,
         estimatedFee: totalFee,
         dietPreference: `葷食 ${mCount} 人 / 素食 ${vCount} 人 (共 ${mealTotal} 餐)`,
-        notes: document.getElementById('notes').value
+        notes: document.getElementById('notes').value.trim() || "無"
       };
 
       const btn = document.getElementById('submitBtn');
