@@ -182,8 +182,8 @@
       return 1420;
     }
 
-    // 查詢
-    document.getElementById('searchBtn').addEventListener('click', () => {
+// 查詢按鈕改用標準 fetch (自動處理 302 重導向)
+    document.getElementById('searchBtn').addEventListener('click', async () => {
       const q = document.getElementById('queryInput').value.trim();
       const msg = document.getElementById('searchMsg');
       if (!q) {
@@ -197,10 +197,9 @@
       btn.innerText = "查詢中...";
       btn.disabled = true;
 
-      const callbackName = "handleSearchResponse_" + Date.now();
-      window[callbackName] = function(res) {
-        btn.innerText = "查詢資料";
-        btn.disabled = false;
+      try {
+        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(q)}`);
+        const res = await response.json();
 
         if (res.result === "success") {
           currentData = res.data;
@@ -209,21 +208,13 @@
           msg.innerText = res.message || "查無此報名資料";
           msg.classList.remove('hidden');
         }
-        delete window[callbackName];
-        document.body.removeChild(script);
-      };
-
-      const script = document.createElement('script');
-      script.src = `${SCRIPT_URL}?callback=${callbackName}&query=${encodeURIComponent(q)}`;
-      script.onerror = () => {
+      } catch (err) {
+        msg.innerText = "查詢失敗，請重新整理後再試一次。";
+        msg.classList.remove('hidden');
+      } finally {
         btn.innerText = "查詢資料";
         btn.disabled = false;
-        msg.innerText = "網路連線異常，請稍後再試";
-        msg.classList.remove('hidden');
-        delete window[callbackName];
-        document.body.removeChild(script);
-      };
-      document.body.appendChild(script);
+      }
     });
 
     // 渲染資料進表單
