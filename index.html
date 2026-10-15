@@ -327,10 +327,10 @@
     function getFeeByDob(dobStr) {
       const age = calculateAge(dobStr);
       if (age < 3) return 0;           // 3歲以下免費
-      if (age <= 6) return 500;        // 3-6歲 $500
-      if (age <= 12) return 1300;      // 7-12歲 $1,300
-      if (age >= 70) return 1300;      // 70歲以上敬老 $1,300
-      return 1420;                     // 13-69歲大人 $1,420
+      if (age <= 6) return 300;        // 3-6歲 $300
+      if (age <= 12) return 1100;      // 7-12歲 $1,100
+      if (age >= 70) return 1100;      // 70歲以上敬老 $1,100
+      return 1220;                     // 13-69歲大人 $1,220
     }
 
     const meatCheck = document.getElementById('dietMeatCheck');
