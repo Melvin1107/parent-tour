@@ -61,7 +61,7 @@
             </ul>
           </div>
 
-          <div class="text-amber-700 font-medium">⚠️ 請確實填寫證件號碼（身分證、居留證或護照）與出生年月日，以利辦理 300 萬公共責任意外險。</div>
+          <div class="text-amber-700 font-medium">⚠️ 請確實填寫證件號碼（台灣身分證或護照）與出生年月日，以利辦理 300 萬公共責任意外險。</div>
         </div>
       </header>
 
@@ -389,7 +389,7 @@
       const group=input.parentElement;group.dataset.prefix=prefix;group.classList.add('doc-group','md:col-span-2');
       const label=document.createElement('div');label.innerHTML=`
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div><label class="block mb-1 font-medium" for="${prefix}DocType">證件類型 *</label><select id="${prefix}DocType" class="doc-type w-full border rounded p-2"><option value="tw">台灣身分證</option><option value="arc">居留證（新式／舊式）</option><option value="passport">護照</option></select></div>
+          <div><label class="block mb-1 font-medium" for="${prefix}DocType">證件類型 *</label><select id="${prefix}DocType" class="doc-type w-full border rounded p-2"><option value="tw">台灣身分證</option><option value="passport">護照</option></select></div>
           <div class="doc-number-slot"><label class="block mb-1 font-medium" for="${input.id}">證件號碼 *</label></div>
           <div class="nationality-field" hidden><label class="block mb-1 font-medium" for="${prefix}Nationality">國籍 *</label><input id="${prefix}Nationality" class="doc-nationality w-full border rounded p-2" maxlength="60" placeholder="例如：日本、美國、越南"></div>
           <div class="confirm-field" hidden><label class="block mb-1 font-medium" for="${prefix}PassportConfirm">再次輸入護照號碼 *</label><input id="${prefix}PassportConfirm" class="doc-confirm w-full border rounded p-2 uppercase" maxlength="20" autocomplete="off"></div>
