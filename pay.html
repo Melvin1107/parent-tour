@@ -16,7 +16,7 @@
 <header class="top"><div><div class="eyebrow">ZHONGXIAO · FAMILY DAY 115</div><h1>現場核對與收款</h1><div class="muted">頭城農場親子遊 · 2026 / 11 / 21</div></div><figure class="header-art"><img src="./zxtour.png" alt="忠孝國小親子同遊頭城農場" onerror="this.closest('figure').hidden=true"></figure><div class="desk-controls"><span id="deskBadge" class="badge closed" role="status">正在確認開放狀態</span><button type="button" id="refreshDesk">重新檢查開放狀態</button><div id="deskCheckedAt" class="help"></div></div></header>
 <div class="steps"><span>01 查詢報名</span><span>02 核對並儲存</span><span>03 確認實收</span><span>04 開立收據</span></div>
 <div id="deskNotice" class="notice warn screen-only" hidden role="status"></div><div id="globalMsg" class="notice" hidden role="status" aria-live="polite"></div>
-<section id="searchSection" class="card screen-only"><h2>查詢報名資料</h2><label for="query">家長電話，或家長／任一參加者的完整證件號碼</label><form id="searchForm" class="searchrow"><input id="query" autocomplete="off" placeholder="輸入電話、身分證、居留證或護照號碼" required maxlength="30"><button class="primary" type="submit">查詢資料</button></form><div class="help">多筆符合時，請先選擇正確報名。查詢結果不存入瀏覽器。</div><div id="matches"></div></section>
+<section id="searchSection" class="card screen-only"><h2>查詢報名資料</h2><label for="query">家長電話，或家長／任一參加者的完整證件號碼</label><form id="searchForm" class="searchrow"><input id="query" autocomplete="off" placeholder="輸入電話或完整證件號碼" required maxlength="30"><button class="primary" type="submit">查詢資料</button></form><div class="help">多筆符合時，請先選擇正確報名。查詢結果不存入瀏覽器。</div><div id="matches"></div></section>
 <div id="recordArea" hidden class="screen-only">
 <section class="card"><div class="recordhead"><div><div class="eyebrow">REGISTRATION</div><h2 style="margin:4px 0">報名資料核對</h2><div id="recordSerial" class="serial"></div><div id="recordCreated" class="help"></div></div><span id="payBadge" class="badge"></span></div><div id="legacyNotice" class="notice warn" hidden></div><div id="paidNotice" class="notice warn" hidden>此筆已付款。可更正聯絡及保險資料；增減、替換人員或改變金額，請交主辦單位人工處理。原收據維持開立時內容。</div></section>
 <form id="editForm">
@@ -133,7 +133,13 @@ function personCard(p,kind,index){
     grid.appendChild(field('與學生關係 *',p.relation,{key:'relation',required:true,maxLength:30}));grid.appendChild(field('電話 *',p.phone,{key:'phone',type:'tel',required:true,maxLength:20}));grid.appendChild(field('收執聯Email *',p.email,{key:'email',type:'email',required:true,maxLength:150}));
   }
   if(kind==='student')grid.appendChild(field('在校班級 *',p.className,{key:'className',required:true,maxLength:30}));
-  grid.appendChild(field('證件類型 *',p.docType||'tw',{key:'docType',select:[['tw','台灣身分證'],['arc','居留證（新／舊）'],['passport','護照']],required:true}));
+  const docField=field('證件類型 *',p.docType||'tw',{key:'docType',select:[['tw','台灣身分證'],['passport','護照']],required:true});
+  // 新填僅提供身分證與護照；已登記居留證保留原類型，不誤改成身分證。
+  if(p.docType==='arc'){
+    const option=document.createElement('option');option.value='arc';option.textContent='居留證（既有資料）';option.hidden=true;
+    docField.querySelector('select').appendChild(option);docField.querySelector('select').value='arc';
+  }
+  grid.appendChild(docField);
   grid.appendChild(field('證件號碼 *',p.id,{key:'id',required:true,maxLength:30}));
   grid.appendChild(field('出生日期 *',p.dob,{key:'dob',type:'date',required:true}));
   const nationality=field('國籍（外籍必填）',p.nationality,{key:'nationality',maxLength:60});grid.appendChild(nationality);
