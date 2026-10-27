@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>學校親子遊報名 - 頭城休閒農場一日遊</title>
+  <style>[hidden]{display:none!important}</style>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 text-slate-800 p-4 md:p-8">
@@ -53,6 +54,7 @@
           <div class="pt-1">
             <strong>💰 收費標準（依出遊日當天實歲計算）：</strong>
             <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <li>老師本人：免費；同行家人依以下年齡收費</li>
               <li>大人（13歲以上，含國中生兄姐）：NT$ 1,220</li>
               <li>7-12歲：NT$ 1,100</li>
               <li>3-6歲：NT$ 300</li>
@@ -70,10 +72,15 @@
         
         <!-- 主要聯絡人家長 -->
         <section class="space-y-4">
-          <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">主要聯絡人（家長）</h2>
+          <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">主要聯絡人（家長／老師）</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div class="md:col-span-2">
+              <label for="registrationRole" class="block mb-1 font-medium">報名身分 *</label>
+              <select id="registrationRole" class="w-full border rounded p-2"><option value="parent">家長報名</option><option value="teacher">老師報名（本人免費）</option></select>
+              <p class="text-sm text-emerald-700 mt-2">老師請填本人為主要聯絡人；只有老師本人免費，同行家人依年齡收費。老師可單獨報名。</p>
+            </div>
             <div>
-              <label class="block mb-1 font-medium">家長姓名 *</label>
+              <label class="block mb-1 font-medium">主要聯絡人姓名 *</label>
               <input type="text" id="parentName" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
@@ -94,7 +101,7 @@
               <input type="tel" id="parentPhone" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
             <div>
-              <label class="block mb-1 font-medium">電子信箱 (接收報名收據) *</label>
+              <label class="block mb-1 font-medium">電子信箱（接收報名確認） *</label>
               <input type="email" id="parentEmail" placeholder="example@gmail.com" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
             </div>
           </div>
@@ -102,7 +109,8 @@
 
         <!-- 學生 1 (必填) -->
         <section class="space-y-4">
-          <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">學生 1（在校生）</h2>
+          <h2 id="student1Title" class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">學生 1（在校生）</h2>
+          <label id="teacherStudentOption" hidden class="text-base font-medium"><input id="hasStudent1" type="checkbox" checked> 同行家人中有第1位在校學生</label>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             <div>
               <label class="block mb-1 font-medium">學生姓名 *</label>
@@ -347,6 +355,7 @@
       return value.normalize('NFKC').trim().toUpperCase();
     }
     function activeDocGroup(group) {
+      if(group.dataset.prefix==='student1')return document.getElementById('hasStudent1').checked;
       const match=/^student([234])$/.exec(group.dataset.prefix);
       return !match || document.getElementById('hasStudent'+match[1]).checked;
     }
@@ -456,11 +465,13 @@
     function recalculate() {
       let count = 1;
       // 家長未填預設 35 歲 -> $1,220
-      let totalFee = getFeeByDob(document.getElementById('parentDob').value, 35);
+      let totalFee = document.getElementById('registrationRole').value==='teacher'?0:getFeeByDob(document.getElementById('parentDob').value, 35);
 
       // 學生 1（必填）未填預設 10 歲 -> $1,100
-      count += 1;
-      totalFee += getFeeByDob(document.getElementById('student1Dob').value, 10);
+      if(document.getElementById('hasStudent1').checked){
+        count += 1;
+        totalFee += getFeeByDob(document.getElementById('student1Dob').value, 10);
+      }
 
       // 學生 2
       if (document.getElementById('hasStudent2').checked) {
@@ -492,6 +503,29 @@
       checkDietMatch(count);
       return { count, totalFee };
     }
+
+    const student1Grid=document.getElementById('student1Name').closest('.grid');
+    function syncStudent1(){
+      const checked=document.getElementById('hasStudent1').checked;
+      student1Grid.hidden=!checked;
+      student1Grid.querySelectorAll('input,select').forEach(input=>{input.disabled=!checked;input.required=checked;input.setCustomValidity('');});
+      student1Grid.querySelectorAll('.doc-group').forEach(syncDocGroup);
+      recalculate();
+    }
+    function syncRegistrationRole(changed=false){
+      const teacher=document.getElementById('registrationRole').value==='teacher';
+      const oldCount=Number(document.getElementById('displayCount').textContent)||2;
+      document.getElementById('teacherStudentOption').hidden=!teacher;
+      if(teacher&&changed&&!document.getElementById('student1Name').value.trim())document.getElementById('hasStudent1').checked=false;
+      if(!teacher)document.getElementById('hasStudent1').checked=true;
+      const relation=document.getElementById('parentRelation');
+      if(teacher&&(!relation.value||relation.value==='父'||relation.value==='母'))relation.value='老師';
+      if(!teacher&&relation.value==='老師')relation.value='';
+      syncStudent1();
+      if(Number(meatInput.value)===oldCount&&Number(vegInput.value)===0){meatInput.value=recalculate().count;recalculate();}
+    }
+    document.getElementById('registrationRole').addEventListener('change',()=>syncRegistrationRole(true));
+    document.getElementById('hasStudent1').addEventListener('change',syncStudent1);
 
     // 學生動態切換設置
     [2, 3, 4].forEach(num => {
@@ -609,7 +643,8 @@
         if (!confirmLess) return;
       }
 
-      const dates=[document.getElementById('parentDob').value,document.getElementById('student1Dob').value];
+      const dates=[document.getElementById('parentDob').value];
+      if(document.getElementById('hasStudent1').checked)dates.push(document.getElementById('student1Dob').value);
       [2,3,4].forEach(n=>{if(document.getElementById('hasStudent'+n).checked)dates.push(document.getElementById('student'+n+'Dob').value);});
       document.querySelectorAll('.other-dob').forEach(input=>dates.push(input.value));
       const mandatory=dates.filter(dob=>calculateAge(dob)>=3).length;
@@ -635,16 +670,17 @@
 
       const payload = {
         submissionId: pendingRegistrationId,
+        registrationRole: document.getElementById('registrationRole').value,
         parentName: document.getElementById('parentName').value.trim(),
         parentRelation: document.getElementById('parentRelation').value.trim(),
         parentPhone: document.getElementById('parentPhone').value.trim(),
         parentEmail: document.getElementById('parentEmail').value.trim(),
         parentId: document.getElementById('parentId').value.trim().toUpperCase(),
         parentDob: document.getElementById('parentDob').value,
-        student1Name: document.getElementById('student1Name').value.trim(),
-        student1Class: document.getElementById('student1Class').value.trim(),
-        student1Id: document.getElementById('student1Id').value.trim().toUpperCase(),
-        student1Dob: document.getElementById('student1Dob').value,
+        student1Name: document.getElementById('hasStudent1').checked ? document.getElementById('student1Name').value.trim() : "無",
+        student1Class: document.getElementById('hasStudent1').checked ? document.getElementById('student1Class').value.trim() : "無",
+        student1Id: document.getElementById('hasStudent1').checked ? document.getElementById('student1Id').value.trim().toUpperCase() : "無",
+        student1Dob: document.getElementById('hasStudent1').checked ? document.getElementById('student1Dob').value : "無",
         student2Name: document.getElementById('hasStudent2').checked ? document.getElementById('student2Name').value.trim() : "無",
         student2Class: document.getElementById('hasStudent2').checked ? document.getElementById('student2Class').value.trim() : "無",
         student2Id: document.getElementById('hasStudent2').checked ? document.getElementById('student2Id').value.trim().toUpperCase() : "無",
@@ -692,6 +728,7 @@
           document.getElementById(`student${num}Box`).classList.add('hidden');
         });
         otherCount = 0;
+        syncRegistrationRole();
         [2,3,4].forEach(n=>document.getElementById('student'+n+'Box').querySelectorAll('input,select').forEach(el=>{el.disabled=true;el.required=false;el.setCustomValidity('');}));
         document.querySelectorAll('.doc-group').forEach(syncDocGroup);
         document.getElementById('dietVegCount').disabled=true;
@@ -711,12 +748,13 @@
 
       let summary = `【報名編號】${serial}\n`;
       summary += `【活動名稱】11/21 頭城農場親子遊\n`;
+      summary += `【報名身分】${data.registrationRole==='teacher'?'老師（本人免費）':'家長'}\n`;
       summary += `【家長聯絡人】${data.parentName} (${data.parentRelation}) ｜ 手機：${data.parentPhone}\n`;
       summary += `【收據信箱】${data.parentEmail}\n`;
       summary += `【證件/生日】${data.parentId} ｜ ${data.parentDob}\n`;
       summary += `【證件類型／國籍】${({tw:"台灣身分證",arc:"居留證",passport:"護照"})[data.parentDocType]}／${data.parentNationality||"臺灣"}\n`;
       summary += `------------------------------------\n`;
-      summary += `【學生 1】${data.student1Name} (${data.student1Class}) ｜ ${data.student1Id} ｜ ${data.student1Dob}\n`;
+      if(data.student1Name&&data.student1Name!=='無')summary += `【學生 1】${data.student1Name} (${data.student1Class}) ｜ ${data.student1Id} ｜ ${data.student1Dob}\n`;
       
       [2, 3, 4].forEach(num => {
         const sName = data[`student${num}Name`];
@@ -753,6 +791,7 @@
     });
 
     [2,3,4].forEach(n=>{document.getElementById("student"+n+"Box").querySelectorAll("input,select").forEach(el=>el.disabled=true);});
+    syncRegistrationRole();
     recalculate();
   </script>
 </body>
