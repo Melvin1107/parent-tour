@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>忠孝親子遊｜現場核對與收款</title>
+<style>
+:root{--green:#126b53;--dark:#183c34;--muted:#61756d;--line:#dbe4df;--bg:#f3f6f3;--amber:#8b5a13;--red:#a22f36}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--dark);font-family:Arial,"Noto Sans TC",sans-serif;font-size:15px;line-height:1.6}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:8px;background:white;padding:10px 16px;color:var(--dark);font-weight:600}button:hover{background:#eef5ef}button:disabled{cursor:wait;opacity:.5}button.primary{background:var(--green);color:white;border-color:var(--green)}button.danger{color:var(--red);padding:6px 12px;font-size:13px}input,select,textarea{width:100%;border:1px solid #b9cbc0;border-radius:7px;padding:10px 11px;background:white;color:#183c34;min-height:44px}input:focus,select:focus,textarea:focus{outline:2px solid #60a98b;outline-offset:2px}input[type=checkbox]{width:20px;min-height:20px;accent-color:var(--green);flex:none}input:disabled,select:disabled,textarea:disabled{background:#eef1ee}label{display:block;font-size:13px;font-weight:600}.field label{margin-bottom:5px}.check{display:flex;gap:9px;align-items:center;font-size:14px}.field small,.muted{color:var(--muted);font-weight:400}.shell{max-width:1040px;margin:auto;padding:30px 22px 70px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--green);font-weight:700}h1{font-size:29px;line-height:1.4;margin:5px 0 3px}h2{font-size:18px;margin:0 0 15px}h3{font-size:15px;margin:0}p{margin:8px 0}.badge{display:inline-block;border-radius:30px;padding:5px 12px;background:#e4eee7;color:var(--green);font-size:12px;font-weight:bold}.badge.closed{background:#f4e7d1;color:var(--amber)}.steps{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:14px 0 22px}.steps span{background:white;border:1px solid var(--line);padding:5px 10px;border-radius:5px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px;box-shadow:0 2px 4px #163c3005}.searchrow{display:flex;gap:10px;margin-top:12px}.searchrow input{flex:1;min-width:0}.notice{border-radius:8px;padding:12px 15px;background:#edf5ef;color:#215c46;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.notice.warn{background:#fff4df;color:#7a551e}.notice.error{background:#fcecef;color:var(--red)}.notice[hidden],[hidden]{display:none!important}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.person{background:#f8faf7;border:1px solid var(--line);padding:18px;border-radius:10px;margin-top:12px}.personhead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.sectionhead h2{margin:0}.recordhead{display:flex;gap:15px;flex-wrap:wrap;justify-content:space-between;align-items:center}.serial{font-size:12px;overflow-wrap:anywhere}.help{font-size:13px;color:var(--muted)}.totals{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;background:#f6faf6;margin:16px 0}.totals div{padding:14px;border-right:1px solid var(--line)}.totals div:last-child{border:0}.totals small{display:block;color:var(--muted)}.totals strong{font-size:23px;color:var(--green)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.result{display:block;text-align:left;width:100%;padding:16px;margin-top:10px;font-weight:400;white-space:normal}.result strong{display:block}.result small{display:block;margin-top:5px;color:var(--muted)}.statusgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.statusbox{padding:12px;background:#f4f7f3;border-radius:8px;font-size:13px;overflow-wrap:anywhere}.statusbox b{display:block}.rulelist{font-size:12px;color:var(--muted);margin-top:10px}.receipt{font-size:14px;background:white}.receiptcopy{border:1px solid #8da396;padding:24px;margin-top:16px;break-inside:avoid;line-height:1.9}.receiptcopy h2{text-align:center;font-size:22px}.receiptcopy .amount{font-size:21px;margin:14px 0}.issuer{position:relative;padding-right:100px;min-height:95px;margin-top:20px;border-top:1px solid var(--line);padding-top:15px}.issuer img{position:absolute;right:0;top:0;width:90px;height:90px;object-fit:contain;opacity:.82}.receiptcode{overflow-wrap:anywhere}.footer{color:var(--muted);font-size:12px;margin-top:18px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.busybar{position:sticky;top:0;z-index:5;background:#183c34;color:white;padding:10px 20px;text-align:center}.screen-reader{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.header-art{margin:0;flex:1;max-width:300px;min-width:140px}.header-art img{display:block;width:100%;height:150px;object-fit:contain;border-radius:10px}.desk-controls{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}.desk-controls button{font-size:14px}.meal-confirm{font-size:20px;font-weight:700;line-height:1.6;padding:18px;background:#eef7ef;border:2px solid #6a9d80;border-radius:10px;align-items:flex-start;gap:14px;cursor:pointer}.meal-confirm small{display:block;font-size:17px;font-weight:500;margin-top:4px}.meal-confirm input[type=checkbox]{width:28px;height:28px;min-height:28px;margin-top:3px}button:disabled{cursor:not-allowed}@media(max-width:700px){.top{flex-wrap:wrap}.header-art{order:3;flex-basis:100%;max-width:100%;text-align:center}.header-art img{max-width:360px;margin:auto;height:auto;max-height:200px}.shell{padding:18px 12px 45px}.card{padding:17px}.grid,.grid.two{grid-template-columns:1fr 1fr}.top{align-items:flex-start}h1{font-size:23px}.statusgrid{grid-template-columns:1fr}.totals div{padding:10px}.totals strong{font-size:19px}.receiptcopy{padding:16px}}
+@media(max-width:440px){.header-art{margin:12px auto}.desk-controls{align-items:flex-start;text-align:left;margin-top:12px}.meal-confirm{font-size:19px}.meal-confirm small{font-size:16px}.grid,.grid.two{grid-template-columns:1fr}.searchrow{flex-direction:column}.totals{grid-template-columns:1fr}.totals div{border:0;border-bottom:1px solid var(--line)}.top{display:block}.top .badge{margin-top:10px}}
+@media print{@page{size:A4;margin:14mm}body{background:white}.shell{padding:0;max-width:none}.screen-only,.top,.steps,.footer,#globalMsg,#busybar,#deskNotice{display:none!important}.card{padding:0;border:0;box-shadow:none;margin:0}#receiptSection{display:block!important}.receiptcopy{font-size:12px;padding:17px;margin:0 0 14px}.receiptcopy h2{font-size:19px}.receiptcopy .amount{font-size:18px}.issuer{min-height:75px}.issuer img{width:75px;height:75px}}
+</style>
+</head>
+<body>
+<div id="busybar" class="busybar" hidden role="status">處理中，請勿關閉或重新整理頁面…</div>
+<main class="shell">
+<header class="top"><div><div class="eyebrow">ZHONGXIAO · FAMILY DAY 115</div><h1>現場核對與收款</h1><div class="muted">頭城農場親子遊 · 2026 / 11 / 21</div></div><figure class="header-art"><img src="./zxtour.png" alt="忠孝國小親子同遊頭城農場" onerror="this.closest('figure').hidden=true"></figure><div class="desk-controls"><span id="deskBadge" class="badge closed" role="status">正在確認開放狀態</span><button type="button" id="refreshDesk">重新檢查開放狀態</button><div id="deskCheckedAt" class="help"></div></div></header>
+<div class="steps"><span>01 查詢報名</span><span>02 核對並儲存</span><span>03 確認實收</span><span>04 開立收據</span></div>
+<div id="deskNotice" class="notice warn screen-only" hidden role="status"></div><div id="globalMsg" class="notice" hidden role="status" aria-live="polite"></div>
+<section id="searchSection" class="card screen-only"><h2>查詢報名資料</h2><label for="query">家長電話，或家長／任一參加者的完整證件號碼</label><form id="searchForm" class="searchrow"><input id="query" autocomplete="off" placeholder="輸入電話或完整證件號碼" required maxlength="30"><button class="primary" type="submit">查詢資料</button></form><div class="help">多筆符合時，請先選擇正確報名。查詢結果不存入瀏覽器。</div><div id="matches"></div></section>
+<div id="recordArea" hidden class="screen-only">
+<section class="card"><div class="recordhead"><div><div class="eyebrow">REGISTRATION</div><h2 style="margin:4px 0">報名資料核對</h2><div id="recordSerial" class="serial"></div><div id="recordCreated" class="help"></div></div><span id="payBadge" class="badge"></span></div><div id="legacyNotice" class="notice warn" hidden></div><div id="paidNotice" class="notice warn" hidden>此筆已付款。可更正聯絡及保險資料；增減、替換人員或改變金額，請交主辦單位人工處理。原收據維持開立時內容。</div></section>
+<form id="editForm">
+<section class="card"><h2>主要聯絡人</h2><label class="check"><input type="checkbox" id="parentAttending" checked>主要聯絡家長也參加活動</label><div class="help">不參加時保留聯絡資料，但不計人數、餐數與費用。</div><div id="parentWrapper"></div></section>
+<section class="card"><div class="sectionhead"><h2>在校學生</h2><button type="button" id="addStudent">＋ 新增學生</button></div><div class="help"><span id="studentRequirement">家長報名至少1位，老師報名可不帶學生；最多4位。</span>請按證件正本核對姓名與生日。</div><div id="studentsWrapper"></div></section>
+<section class="card"><div class="sectionhead"><h2>同行親友</h2><button type="button" id="addOther">＋ 新增親友</button></div><div class="help">最多4位；同筆報名至少有1位活動日滿18歲的成年參加者。</div><div id="othersWrapper"></div></section>
+<section class="card"><h2>餐數與費用確認</h2><div id="totals" class="totals"></div><div class="rulelist">老師本人免費，家人依年齡收費 · 未滿3歲免費（可免餐或免費用餐） · 3–6歲300元 · 7–12歲1,100元 · 13–69歲1,220元 · 70歲以上1,100元。依活動日實歲計算。</div><div id="mealSummary" class="notice"></div><label class="check meal-confirm"><input type="checkbox" id="mealsConfirmed" required><span>已逐人核對葷食、素食或免餐<br><small>新增／移除人員後，已重新確認餐數</small></span></label><div class="field" style="margin-top:16px"><label for="notes">備註（特殊體質、過敏等，最多1500字）</label><textarea id="notes" maxlength="1500" rows="2"></textarea></div><div class="actions"><button id="saveBtn" class="primary" type="submit">儲存資料修改</button><button id="reloadBtn" type="button">重新載入此筆</button></div><p id="dirtyText" class="help"></p></section>
+</form>
+<section id="zeroFeeNotice" class="card notice" hidden></section>
+<section class="card" id="paymentSection"><h2>確認收到款項</h2><p class="help">請先儲存核對資料。此處為人工確認，系統不會自動查核銀行入帳。</p><form id="paymentForm"><div class="grid"><div class="field"><label for="amount">實收金額（請自行輸入）</label><input id="amount" type="number" min="1" step="1" inputmode="numeric" required placeholder="不可少於或多於應收"></div><div class="field"><label for="method">收款方式</label><select id="method" required><option value="">請選擇</option><option value="cash">現金</option><option value="transfer">轉帳</option></select></div><div class="field" id="last5Field" hidden><label for="last5">轉出帳號末五碼</label><input id="last5" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="例如 00123"></div></div><div class="field" style="margin-top:18px;max-width:360px"><label for="paymentPassword" style="font-size:17px">收款確認密碼 *</label><input id="paymentPassword" type="password" required maxlength="100" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="請由收款人員輸入密碼"><div class="help">請先確認款項已收妥，再輸入密碼。密碼正確且金額相符，才能完成付款。</div></div><div class="actions"><button id="payBtn" class="primary" type="submit">確認付款並開立收據</button></div></form></section>
+</div>
+<section id="receiptSection" class="card" hidden><div class="screen-only"><h2>付款與收據結果</h2><div id="paymentSummary" class="notice"></div><div id="deliveryStatuses" class="statusgrid"></div><div id="deliveryError" class="notice warn" hidden></div><div class="actions"><button type="button" id="refreshReceipt">重新查詢寄送／PDF狀態</button><button type="button" id="resendParent">補寄收執聯</button><button type="button" id="resendStub">補寄存根聯</button><button type="button" id="retryPdf">重試保存PDF</button><button type="button" id="printReceipt" class="primary">補印收據</button></div><div class="help">「重新查詢寄送／PDF狀態」只讀取結果，不重收款或重寄信。補寄不重新收款、不更換收據號碼。收執聯寄至最新已儲存的家長Email。處理中結果未明時，請先人工核對，勿重複寄送。</div></div><div id="receiptPreview" class="receipt"></div></section>
+<footer class="footer">臺北市中正區忠孝國民小學家長會<br>現場核對頁 · 使用完畢請關閉頁面，並由主辦單位關閉後端服務。</footer>
+</main>
+<script>
+'use strict';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycby8HO0V08vRuG-TKAMEj7JcrePflnomOa4vZjKPM36koxRr-3bFzDmIOJX6PPJ-WxxK/exec';
+const $=id=>document.getElementById(id);
+let current=null, dirty=false, busy=false, deskOpen=false, receipt=null;
+const pending=new Map();
+let statusChecking=false;
+function id(){return crypto.randomUUID();}
+function googleOrigin(origin){return origin==='https://script.google.com'||/^https:\/\/[a-z0-9-]+\.googleusercontent\.com$/i.test(origin);}
+window.addEventListener('message',event=>{
+  if(!googleOrigin(event.origin)||!event.data||event.data.channel!=='tour-desk-v2')return;
+  const entry=pending.get(event.data.requestId); if(!entry)return;
+  clearTimeout(entry.timer);entry.form.remove();entry.frame.remove();pending.delete(event.data.requestId);
+  const response=event.data.response;
+  if(!response||response.result!=='success'){
+    if(response&&String(response.message).includes('現場核對收款目前未開放'))setDeskState(false);
+    entry.reject(new Error(response&&response.message||'後端未確認成功。'));
+  } else {
+    if(entry.action!=='status')setDeskState(true);
+    entry.resolve(response);
+  }
+});
+function api(action,data={}){
+  return new Promise((resolve,reject)=>{
+    const requestId=id(), frame=document.createElement('iframe'), form=document.createElement('form');
+    frame.name='tour_'+requestId;frame.hidden=true;frame.title='後端確認通道';document.body.appendChild(frame);
+    form.method='POST';form.action=SCRIPT_URL;form.target=frame.name;form.hidden=true;
+    const input=document.createElement('input');input.type='hidden';input.name='payload';input.value=JSON.stringify({...data,action,requestId,origin:location.origin});form.appendChild(input);document.body.appendChild(form);
+    const timer=setTimeout(()=>{pending.delete(requestId);form.remove();frame.remove();reject(new Error('等待後端確認逾時。若剛才確認付款，請重新查詢此筆付款狀態，勿再次收錢。'));},action==='status'?15000:180000);
+    pending.set(requestId,{resolve,reject,timer,frame,form,action});form.submit();
+  });
+}
+function message(text,type=''){const el=$('globalMsg');el.textContent=text;el.className='notice '+type;el.hidden=!text;}
+function setBusy(value){
+  busy=value;$('busybar').hidden=!value;
+  document.querySelectorAll('main button,main input,main select,main textarea').forEach(el=>{el.disabled=value;});
+  if(!value)syncLocks();
+}
+async function run(task){if(busy)return;setBusy(true);message('');try{await task();}catch(error){message(error.message||String(error),'error');}finally{setBusy(false);}}
+function syncLocks(){
+  if(busy)return;
+  // 每次由目前狀態重新決定，不沿用前一輪的disabled，避免永久鎖住。
+  document.querySelectorAll('#editForm input,#editForm select,#editForm textarea,#editForm button').forEach(el=>{el.disabled=!deskOpen;});
+  const paid=!!(current&&current.paid);
+  ['addStudent','addOther'].forEach(k=>$(k).disabled=!deskOpen||paid);
+  $('parentAttending').disabled=!deskOpen||paid;
+  const role=document.querySelector('#parentWrapper [data-key=role]');if(role)role.disabled=!deskOpen||paid;
+  document.querySelectorAll('.remove-person').forEach(el=>{el.disabled=!deskOpen||paid;});
+  $('reloadBtn').disabled=!deskOpen||!current;
+  document.querySelectorAll('#paymentForm input,#paymentForm select,#paymentForm button').forEach(el=>{el.disabled=!deskOpen||!current||paid||dirty||current.mealReviewRequired;});
+  $('paymentSection').hidden=paid||!!(current&&current.exempt&&!dirty);
+  document.querySelectorAll('#receiptSection button').forEach(el=>{el.disabled=!deskOpen||!current;});
+  $('refreshDesk').disabled=statusChecking;
+}
+function setDeskState(open){
+  deskOpen=open===true;
+  $('deskBadge').textContent=deskOpen?'現場服務開放中':'現場服務尚未開放';
+  $('deskBadge').classList.toggle('closed',!deskOpen);
+  $('deskNotice').hidden=deskOpen;
+  $('deskNotice').textContent='目前後端尚未開放，修改與收款暫時停用。請在同一個Apps Script專案執行 openPaymentDesk，再按「重新檢查開放狀態」。若尚未初始化，先執行 setupPaymentSystem。';
+  $('deskCheckedAt').textContent='最近確認：'+new Date().toLocaleTimeString('zh-TW',{hour12:false});
+  syncLocks();
+}
+async function refreshDeskStatus(silent=false){
+  if(statusChecking)return;
+  statusChecking=true;$('refreshDesk').disabled=true;
+  try {
+    if(location.origin!=='https://melvin1107.github.io')throw Error('請將本頁放在 https://melvin1107.github.io 的 GitHub Pages 網站執行。');
+    const res=await api('status');
+    if(typeof res.open!=='boolean')throw Error('後端版本不符，請更新Apps Script部署。');
+    setDeskState(res.open);
+    if(!silent&&res.open)message('後端已開放，可以查詢、核對修改及測試收款。');
+  } catch(error){
+    setDeskState(false);$('deskBadge').textContent='開放狀態無法確認';
+    $('deskNotice').textContent='暫時無法確認後端狀態。請核對SCRIPT_URL與目前部署網址，再按「重新檢查開放狀態」。';
+    if(!silent)throw error;
+  } finally {
+    statusChecking=false;
+    if(!busy)syncLocks();
+  }
+}
+$('refreshDesk').onclick=()=>{refreshDeskStatus().catch(error=>message(error.message||String(error),'error'));};
+setInterval(()=>{if(!busy&&!statusChecking&&!document.hidden)refreshDeskStatus(true);},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!busy&&!statusChecking)refreshDeskStatus(true);});
+function markDirty(){if(!current)return;dirty=true;$('mealsConfirmed').checked=false;$('dirtyText').textContent='有尚未儲存的修改，請核對餐數並儲存後再收款。';syncLocks();updateTotals();}
+function field(label,value,options={}){
+  const box=document.createElement('div');box.className='field';const lab=document.createElement('label');lab.textContent=label;const input=options.select?document.createElement('select'):document.createElement('input');
+  input.id='f_'+id();lab.htmlFor=input.id;
+  if(options.select)options.select.forEach(([v,t])=>{const opt=document.createElement('option');opt.value=v;opt.textContent=t;input.appendChild(opt);});
+  else {input.type=options.type||'text';if(options.maxLength)input.maxLength=options.maxLength;}
+  input.dataset.key=options.key;input.value=value||'';input.required=!!options.required;if(input.type==='date'){input.min='1900-01-01';input.max='2026-11-21';}
+  box.append(lab,input);return box;
+}
+function personCard(p,kind,index){
+  const card=document.createElement('div');card.className='person';card.dataset.kind=kind;
+  const head=document.createElement('div');head.className='personhead';const title=document.createElement('h3');title.textContent=kind==='parent'?'聯絡家長':(kind==='student'?'學生 ':'親友 ')+(index+1);head.appendChild(title);
+  const fee=document.createElement('span');fee.className='badge person-fee';head.appendChild(fee);
+  if(kind!=='parent'){const remove=document.createElement('button');remove.type='button';remove.className='danger remove-person';remove.textContent='移除';remove.onclick=()=>{if(current.paid)return;if(kind==='student'&&$('studentsWrapper').children.length<=1&&collect().parent.role!=='teacher'){message('至少需保留1位在校學生。','warn');return;}if(confirm('確定移除這位人員？儲存後才會更新資料。')){card.remove();renumber();markDirty();}};head.appendChild(remove);}
+  card.appendChild(head);const grid=document.createElement('div');grid.className='grid';
+  grid.appendChild(field('姓名 *',p.name,{key:'name',required:true,maxLength:100}));
+  if(kind==='parent'){
+    grid.appendChild(field('報名身分 *',p.role||'parent',{key:'role',select:[['parent','家長'],['teacher','老師（本人免費）']],required:true}));
+    grid.appendChild(field('身分／與學生關係 *',p.relation,{key:'relation',required:true,maxLength:30}));grid.appendChild(field('電話 *',p.phone,{key:'phone',type:'tel',required:true,maxLength:20}));grid.appendChild(field('收執聯Email *',p.email,{key:'email',type:'email',required:true,maxLength:150}));
+  }
+  if(kind==='student')grid.appendChild(field('在校班級 *',p.className,{key:'className',required:true,maxLength:30}));
+  const docField=field('證件類型 *',p.docType||'tw',{key:'docType',select:[['tw','台灣身分證'],['passport','護照']],required:true});
+  // 新填僅提供身分證與護照；已登記居留證保留原類型，不誤改成身分證。
+  if(p.docType==='arc'){
+    const option=document.createElement('option');option.value='arc';option.textContent='居留證（既有資料）';option.hidden=true;
+    docField.querySelector('select').appendChild(option);docField.querySelector('select').value='arc';
+  }
+  grid.appendChild(docField);
+  grid.appendChild(field('證件號碼 *',p.id,{key:'id',required:true,maxLength:30}));
+  grid.appendChild(field('出生日期 *',p.dob,{key:'dob',type:'date',required:true}));
+  const nationality=field('國籍（外籍必填）',p.nationality,{key:'nationality',maxLength:60});grid.appendChild(nationality);
+  grid.appendChild(field('用餐選擇 *',p.meal||'meat',{key:'meal',select:[['meat','葷食'],['veg','素食'],['none','免餐（限未滿3歲）']],required:true}));
+  card.appendChild(grid);
+  const doc=grid.querySelector('[data-key=docType]');function syncNationality(){nationality.querySelector('input').required=doc.value!=='tw';}doc.addEventListener('change',syncNationality);syncNationality();
+  return card;
+}
+function renumber(){['studentsWrapper','othersWrapper'].forEach((wrapper)=>{[...$(wrapper).children].forEach((card,i)=>{card.querySelector('h3').textContent=(wrapper==='studentsWrapper'?'學生 ':'親友 ')+(i+1);});});}
+function readCard(card){const p={};card.querySelectorAll('[data-key]').forEach(el=>p[el.dataset.key]=el.value.trim());p.id=p.id.toUpperCase();return p;}
+function collect(){const parent=readCard($('parentWrapper').firstElementChild);parent.attending=$('parentAttending').checked;return {parent,students:[...$('studentsWrapper').children].map(readCard),others:[...$('othersWrapper').children].map(readCard),notes:$('notes').value.trim()};}
+function age(dob){if(!/^\d{4}-\d{2}-\d{2}$/.test(dob||''))throw Error('請填寫生日');const[y,m,d]=dob.split('-').map(Number),dt=new Date(Date.UTC(y,m-1,d));if(y<1900||dt.getUTCFullYear()!==y||dt.getUTCMonth()!==m-1||dt.getUTCDate()!==d||dob>'2026-11-21')throw Error('生日無效');return 2026-y-((m>11||(m===11&&d>21))?1:0);}
+function fee(dob){const a=age(dob);return a<3?0:a<=6?300:a<=12?1100:a>=70?1100:1220;}
+function getTotals(d){const people=(d.parent.attending?[d.parent]:[]).concat(d.students,d.others),meals={meat:0,veg:0,none:0};let total=0;for(const p of people){total+=(p===d.parent&&d.parent.role==='teacher'?0:fee(p.dob));if(p.meal==='none'&&age(p.dob)>=3)throw Error('年滿3歲者必須選擇葷食或素食');meals[p.meal]++;}return {count:people.length,fee:total,meals,adult:people.some(p=>age(p.dob)>=18)};}
+function updateTotals(){if(!current)return;try{const d=collect(),t=getTotals(d);$('totals').replaceChildren();[['參加人數',t.count+' 人'],['應收金額','NT$ '+t.fee.toLocaleString()],['用餐人數',(t.meals.meat+t.meals.veg)+' 人']].forEach(([label,value])=>{const div=document.createElement('div'),small=document.createElement('small'),strong=document.createElement('strong');small.textContent=label;strong.textContent=value;div.append(small,strong);$('totals').appendChild(div);});$('mealSummary').textContent=`葷食 ${t.meals.meat} 人 · 素食 ${t.meals.veg} 人 · 免餐 ${t.meals.none} 人`+(t.adult?'':'\n至少需要1位活動日滿18歲的成年參加者。');$('mealSummary').className='notice'+(t.adult?'':' warn');document.querySelectorAll('.person').forEach(card=>{const p=readCard(card),badge=card.querySelector('.person-fee');badge.textContent=card.dataset.kind==='parent'&&!d.parent.attending?'不參加':card.dataset.kind==='parent'&&d.parent.role==='teacher'?'老師本人免費':'NT$ '+fee(p.dob).toLocaleString();});$('zeroFeeNotice').hidden=t.fee!==0||current.paid;$('zeroFeeNotice').textContent=dirty?'本筆預估免繳費，請先儲存核對資料。':'本筆免繳費，無須收款或開立繳費收據。老師仍計入參加人數與用餐人數。';return t;}catch(e){$('totals').textContent='請先完整填寫並確認出生日期。';$('mealSummary').textContent=e.message;$('mealSummary').className='notice warn';return null;}}
+function renderRecord(r){current=r;updateMatchStatus(r.recordId,r.paid,r.data.parent.name,r.exempt);dirty=false;$('recordArea').hidden=false;$('recordSerial').textContent='報名編號：'+r.serial;$('recordCreated').textContent='原報名日期：'+r.createdAt;$('payBadge').textContent=r.paid?'已付款':r.exempt?'免繳費':'未付款';$('parentAttending').checked=r.data.parent.attending;$('parentWrapper').replaceChildren(personCard(r.data.parent,'parent',0));$('studentsWrapper').replaceChildren(...r.data.students.map((p,i)=>personCard(p,'student',i)));$('othersWrapper').replaceChildren(...r.data.others.map((p,i)=>personCard(p,'other',i)));$('notes').value=r.data.notes;$('mealsConfirmed').checked=false;$('legacyNotice').hidden=!r.mealReviewRequired;$('legacyNotice').textContent='此筆為原報名資料，尚未完成逐人餐別核對。原填寫：'+(r.legacyDiet||'未填')+'\n請逐人確認用餐與證件類型；非台灣身分證者請補國籍。';$('paidNotice').hidden=!r.paid;$('dirtyText').textContent=r.mealReviewRequired?'請完成核對並儲存後再收款。':'資料已儲存。若需修改，請完成後再次儲存。';$('paymentForm').reset();$('last5Field').hidden=true;$('last5').required=false;updateTotals();syncLocks();}
+$('editForm').addEventListener('input',markDirty);$('editForm').addEventListener('change',event=>{if(event.target.id==='mealsConfirmed')return;markDirty();});
+// 餐數確認勾選本身不是資料變更，不要因冒泡被取消。
+$('mealsConfirmed').addEventListener('input',event=>event.stopPropagation());
+$('addStudent').onclick=()=>{if($('studentsWrapper').children.length>=4){message('在校學生最多4位。','warn');return;}$('studentsWrapper').appendChild(personCard({},'student',$('studentsWrapper').children.length));markDirty();};
+$('addOther').onclick=()=>{if($('othersWrapper').children.length>=4){message('同行親友最多4位。','warn');return;}$('othersWrapper').appendChild(personCard({},'other',$('othersWrapper').children.length));markDirty();};
+$('searchForm').onsubmit=event=>{event.preventDefault();if(dirty&&!confirm('尚有未儲存修改，確定離開此筆？'))return;run(async()=>{current=null;receipt=null;dirty=false;$('recordArea').hidden=true;$('receiptSection').hidden=true;$('matches').replaceChildren();const res=await api('query',{query:$('query').value.trim()});if(!res.matches.length){message('查無符合的報名，請確認完整電話或證件號碼。','warn');return;}res.matches.forEach(r=>{const b=document.createElement('button');b.type='button';b.className='result';b.dataset.recordId=r.recordId;b.dataset.parentName=r.parentName;const strong=document.createElement('strong'),detail=document.createElement('small');strong.textContent=r.parentName+' · '+(r.paid?'已付款':r.exempt?'免繳費':'未付款');detail.textContent='報名 '+r.serial+'｜'+(r.students||'老師／家人同行')+'｜'+r.count+' 人';b.append(strong,detail);b.onclick=()=>run(()=>loadRecord(r.recordId));$('matches').appendChild(b);});message('找到 '+res.matches.length+' 筆，請選擇正確報名。');});};
+async function loadRecord(recordId){const res=await api('get',{recordId});renderRecord(res.record);$('receiptSection').hidden=true;receipt=null;if(current.paid)await loadReceipt();}
+$('reloadBtn').onclick=()=>{if(dirty&&!confirm('確定捨棄尚未儲存的修改？'))return;run(()=>loadRecord(current.recordId));};
+$('editForm').onsubmit=event=>{event.preventDefault();if(!$('editForm').reportValidity())return;const data=collect(),t=updateTotals();if(!t||!t.adult){message('請確認生日、餐別，以及至少1位成年參加者。','error');return;}run(async()=>{const res=await api('save',{recordId:current.recordId,version:current.version,data,mealsConfirmed:$('mealsConfirmed').checked});renderRecord(res.record);message('資料已成功寫入試算表。');if(current.paid)await loadReceipt();});};
+$('method').onchange=()=>{const transfer=$('method').value==='transfer';$('last5Field').hidden=!transfer;$('last5').required=transfer;if(!transfer)$('last5').value='';};
+$('paymentForm').onsubmit=event=>{event.preventDefault();if(!$('paymentPassword').value){message('請輸入收款確認密碼。','warn');$('paymentPassword').focus();return;}if(dirty){message('請先儲存修改，再確認收款。','warn');return;}if(!current||current.mealReviewRequired){message('請先逐人核對並儲存資料。','warn');return;}const t=updateTotals(),amount=Number($('amount').value),method=$('method').value,last5=$('last5').value;if(!t||!Number.isSafeInteger(amount)||amount!==t.fee){message('實收金額與應收不符，不能完成付款。','error');return;}if(!confirm(`確定已收到 NT$ ${amount.toLocaleString()}？\n確認後將記錄付款並開立收據，不能直接撤銷。`))return;run(async()=>{const res=await api('pay',{recordId:current.recordId,version:current.version,amount,method,last5,paymentPassword:$('paymentPassword').value});$('paymentPassword').value='';current.paid=true;showReceipt(res);syncLocks();$('payBadge').textContent='已付款';$('paidNotice').hidden=false;message('付款紀錄已確認。請核對以下PDF與兩聯寄送狀態。');$('receiptSection').scrollIntoView({behavior:'smooth'});});};
+function appendText(parent,tag,text,className){const el=document.createElement(tag);el.textContent=text;if(className)el.className=className;parent.appendChild(el);return el;}
+function receiptCopy(s,title,reprint){const box=document.createElement('section');box.className='receiptcopy';appendText(box,'div',title+(reprint?' · 補印':''),'eyebrow');appendText(box,'h2',s.eventName+'收據');appendText(box,'div','收據號碼：'+s.receiptNo,'receiptcode');appendText(box,'div','報名編號：'+s.serial,'receiptcode');appendText(box,'p','茲收到 '+(s.students.length?s.students.map(p=>p.name+'（'+p.className+'）').join('、')+' 同學':s.parentName+(s.registrationRole==='teacher'?' 老師及家人':''))+'之親子遊費用');appendText(box,'div','參加人數：'+s.count+' 位');appendText(box,'div','實收金額：新臺幣 '+Number(s.amount).toLocaleString()+' 元整','amount');appendText(box,'div','收款方式：'+(s.method==='cash'?'現金':'轉帳（末五碼 '+s.last5+'）'));appendText(box,'div','收款時間：'+s.paidAt+'（台灣時間）');appendText(box,'div','活動日期：'+s.eventDate);const issuer=appendText(box,'div',s.issuer,'issuer');if(s.stampData&&/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(s.stampData)){const img=document.createElement('img');img.src=s.stampData;img.alt='家長會印章';issuer.appendChild(img);}if(reprint)appendText(issuer,'div','補印沿用原收據號碼。','help');return box;}
+function renderReceiptPreview(reprint=false){$('receiptPreview').replaceChildren(receiptCopy(receipt,'收執聯',reprint),receiptCopy(receipt,'存根聯',reprint));}
+function updateMatchStatus(recordId,paid,parentName,exempt=false){document.querySelectorAll('#matches .result').forEach(button=>{if(button.dataset.recordId===recordId){if(parentName)button.dataset.parentName=parentName;button.querySelector('strong').textContent=button.dataset.parentName+' · '+(paid?'已付款':exempt?'免繳費':'未付款');}});}
+function showReceipt(res){if(res.record&&current&&res.record.recordId===current.recordId){current=res.record;updateMatchStatus(current.recordId,current.paid,current.data.parent.name);}receipt=res.receipt;$('receiptSection').hidden=false;const p=res.payment;$('paymentSummary').textContent='已付款 NT$ '+Number(p.amount).toLocaleString()+'｜收據 '+p.receiptNo+'\n收執聯寄送信箱：'+p.parentEmail+'\n存根聯寄送信箱：weareparent@gmail.com';$('deliveryStatuses').replaceChildren();[['收執聯',p.parentStatus],['存根聯',p.stubStatus],['PDF存檔',p.pdfStatus]].forEach(([label,status])=>{const box=document.createElement('div');box.className='statusbox';appendText(box,'b',label);appendText(box,'span',status);$('deliveryStatuses').appendChild(box);});const warnings=[p.error,res.summaryWarning].filter(Boolean).join('；');$('deliveryError').hidden=!warnings;$('deliveryError').textContent=warnings;$('retryPdf').hidden=p.pdfStatus==='已保存';renderReceiptPreview();}
+async function loadReceipt(){showReceipt(await api('receipt',{recordId:current.recordId}));}
+$('refreshReceipt').onclick=()=>run(loadReceipt);
+$('resendParent').onclick=()=>resend('parent');$('resendStub').onclick=()=>resend('stub');
+function resend(target){if(dirty){message('請先儲存資料，再補寄。','warn');return;}if(!confirm('確定補寄'+(target==='parent'?'收執聯至最新已儲存的家長Email':'存根聯至weareparent@gmail.com')+'？'))return;run(async()=>{showReceipt(await api('resend',{recordId:current.recordId,target}));message('補寄處理完成，請查看聯別寄送狀態。');});}
+$('retryPdf').onclick=()=>run(async()=>{showReceipt(await api('retryPdf',{recordId:current.recordId}));message('PDF處理完成，請查看保存狀態。');});
+$('printReceipt').onclick=()=>run(async()=>{const res=await api('print',{recordId:current.recordId});receipt=res.receipt;renderReceiptPreview(true);window.print();});
+window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}});
+syncLocks();
+refreshDeskStatus(true);
+</script>
+</body></html>
