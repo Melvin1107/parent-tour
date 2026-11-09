@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學校親子遊報名 - 頭城休閒農場一日遊</title>
+  <style>[hidden]{display:none!important}</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 p-4 md:p-8">
+  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    
+    <!-- 活動海報主圖 -->
+    <div class="w-full bg-slate-200">
+      <img src="./zxtour.png" alt="頭城休閒農場一日遊" class="w-full h-auto object-cover block">
+    </div>
+
+    <div class="p-6 md:p-8 space-y-6">
+      
+      <!-- 行程與活動簡介 -->
+      <header class="border-b pb-4">
+        <div class="flex items-center space-x-2 text-emerald-700 font-semibold text-sm">
+          <span class="bg-emerald-100 px-2.5 py-0.5 rounded">115年學校活動</span>
+          <span>出遊日期：2026/11/21 (六)</span>
+        </div>
+        <h1 class="text-2xl font-bold text-slate-900 mt-2">頭城農場一日遊體驗之旅</h1>
+        
+        <div class="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600 space-y-2">
+          <div>📍 <strong>活動地點：</strong>宜蘭縣頭城休閒農場</div>
+          
+          <div>
+            <strong>🕒 行程說明：</strong>
+            <p class="mt-1 leading-relaxed text-slate-600">
+              平日裡，我們忙著工作，孩子忙著上課，連好好說說話，都常常得等「有空再說」。這次頭城農場親子遊，我們特別把行程安排得輕鬆一些，留一點時間給風景，也留一點時間給彼此。讓孩子看看小動物、自在探索，讓大人暫時放下忙碌，在綠意裡喘口氣；也讓平常只在校門口點頭的家長，有機會坐下來聊聊，從打招呼變成認識。希望這一天，大家帶回家的除了照片，還有孩子分享的新發現、幾位新朋友，以及一家人一起慢下來的好心情。
+            </p>
+          </div>
+
+          <div class="pt-1">
+            <strong>🕒 當日流程：</strong>
+            <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <li>08:00-08:30 校門口集合出發</li>
+              <li>10:00       抵達頭城農場-相見歡</li>
+              <li>10:05       享用迎賓點心</li>
+              <li>10:10-11:00 農特產品DIY</li>
+              <li>11:00-12:00 葉拓DIY</li>
+              <li>12:00-13:30 美味鄉土饗宴（自助式中式午餐）</li>
+              <li>13:30-15:20 頭城農場園區生態導覽</li>
+              <li>15:20-15:50 湖岸物語</li>
+              <li>15:50       拍團體照</li>
+              <li>16:00-17:30至18:00 回到溫暖的家</li>
+              <li>    ※ 以上行程為預定安排，實際活動時間及內容將視當日情況彈性調整</li>
+            </ul>
+          </div>
+
+          <div class="pt-1">
+            <strong>💰 收費標準（依出遊日當天實歲計算）：</strong>
+            <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <li>老師本人：免費；同行家人依以下年齡收費</li>
+              <li>大人（13歲以上，含國中生兄姐）：NT$ 1,220</li>
+              <li>7-12歲：NT$ 1,100</li>
+              <li>3-6歲：NT$ 300（含餐不含DIY）</li>
+              <li>未滿3歲：免費不收費（含餐不含DIY）</li>
+              <li>70歲以上（敬老優惠，歡迎阿公阿嬤一同參加）：NT$ 1,100</li>
+            </ul>
+          </div>
+
+          <div class="text-amber-700 font-medium">⚠️ 請確實填寫證件號碼（台灣身分證或護照）與出生年月日，以利辦理 300 萬公共責任意外險。</div>
+        </div>
+
+         <div class="pt-1">
+            <ul class="mt-1 pl-4 space-y-0.5 list-disc text-slate-600">
+              <strong>💰 匯款資訊：</strong>
+                <li>臺北市中正區忠孝國民小學學生家長會</li>
+              <li>銀行：兆豐國際商業銀行（017）</li>
+              <li>帳號：20110635505</li>
+            </ul>
+          </div>
+
+      </header>
+
+      <!-- 報名表單 -->
+      <form id="tourForm" class="space-y-6">
+        
+        <!-- 主要聯絡人家長 -->
+        <section class="space-y-4">
+          <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">主要聯絡人（家長／老師）</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div class="md:col-span-2">
+              <label for="registrationRole" class="block mb-1 font-medium">報名身分 *</label>
+              <select id="registrationRole" class="w-full border rounded p-2"><option value="parent">家長報名</option><option value="teacher">老師報名（本人免費）</option></select>
+              <p class="text-sm text-emerald-700 mt-2">老師請填本人為主要聯絡人；只有老師本人免費，同行家人依年齡收費。老師可單獨報名。</p>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">主要聯絡人姓名 *</label>
+              <input type="text" id="parentName" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">與學生關係 *</label>
+              <input type="text" id="parentRelation" placeholder="例：父、母" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">身分證字號 *</label>
+              <input type="text" id="parentId" maxlength="10" required class="w-full border rounded p-2 uppercase outline-none focus:ring-1 focus:ring-emerald-500">
+              <span class="text-xs text-red-500 hidden id-err">身分證格式錯誤</span>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">出生日期 *</label>
+              <input type="date" id="parentDob" required class="calc-age w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">聯絡手機 *</label>
+              <input type="tel" id="parentPhone" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">電子信箱（接收報名確認） *</label>
+              <input type="email" id="parentEmail" placeholder="example@gmail.com" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+          </div>
+        </section>
+
+        <!-- 學生 1 (必填) -->
+        <section class="space-y-4">
+          <h2 id="student1Title" class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">學生 1（在校生）</h2>
+          <label id="teacherStudentOption" hidden class="text-base font-medium"><input id="hasStudent1" type="checkbox" checked> 同行家人中有第1位在校學生</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div>
+              <label class="block mb-1 font-medium">學生姓名 *</label>
+              <input type="text" id="student1Name" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">班級 *</label>
+              <input type="text" id="student1Class" placeholder="例：302 或 大象班" required class="w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">身分證字號 *</label>
+              <input type="text" id="student1Id" maxlength="10" required class="w-full border rounded p-2 uppercase outline-none focus:ring-1 focus:ring-emerald-500">
+              <span class="text-xs text-red-500 hidden id-err">身分證格式錯誤</span>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">出生日期 *</label>
+              <input type="date" id="student1Dob" required class="calc-age w-full border rounded p-2 outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+          </div>
+        </section>
+
+        <!-- 學生 2 -->
+        <section class="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+          <label class="flex items-center space-x-2 text-sm font-medium cursor-pointer">
+            <input type="checkbox" id="hasStudent2" class="w-4 h-4 text-emerald-600 rounded">
+            <span>加報第 2 位在校學生（若無請勿勾選）</span>
+          </label>
+          <div id="student2Box" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3 text-sm pt-2 border-t">
+            <div>
+              <label class="block mb-1 font-medium">學生 2 姓名 *</label>
+              <input type="text" id="student2Name" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">班級 *</label>
+              <input type="text" id="student2Class" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">身分證字號 *</label>
+              <input type="text" id="student2Id" maxlength="10" class="w-full border rounded p-2 uppercase outline-none">
+              <span class="text-xs text-red-500 hidden id-err">身分證格式錯誤</span>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">出生日期 *</label>
+              <input type="date" id="student2Dob" class="calc-age w-full border rounded p-2 outline-none">
+            </div>
+          </div>
+        </section>
+
+        <!-- 學生 3 -->
+        <section class="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+          <label class="flex items-center space-x-2 text-sm font-medium cursor-pointer">
+            <input type="checkbox" id="hasStudent3" class="w-4 h-4 text-emerald-600 rounded">
+            <span>加報第 3 位在校學生（若無請勿勾選）</span>
+          </label>
+          <div id="student3Box" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3 text-sm pt-2 border-t">
+            <div>
+              <label class="block mb-1 font-medium">學生 3 姓名 *</label>
+              <input type="text" id="student3Name" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">班級 *</label>
+              <input type="text" id="student3Class" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">身分證字號 *</label>
+              <input type="text" id="student3Id" maxlength="10" class="w-full border rounded p-2 uppercase outline-none">
+              <span class="text-xs text-red-500 hidden id-err">身分證格式錯誤</span>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">出生日期 *</label>
+              <input type="date" id="student3Dob" class="calc-age w-full border rounded p-2 outline-none">
+            </div>
+          </div>
+        </section>
+
+        <!-- 學生 4 -->
+        <section class="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+          <label class="flex items-center space-x-2 text-sm font-medium cursor-pointer">
+            <input type="checkbox" id="hasStudent4" class="w-4 h-4 text-emerald-600 rounded">
+            <span>加報第 4 位在校學生（若無請勿勾選）</span>
+          </label>
+          <div id="student4Box" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3 text-sm pt-2 border-t">
+            <div>
+              <label class="block mb-1 font-medium">學生 4 姓名 *</label>
+              <input type="text" id="student4Name" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">班級 *</label>
+              <input type="text" id="student4Class" class="w-full border rounded p-2 outline-none">
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">身分證字號 *</label>
+              <input type="text" id="student4Id" maxlength="10" class="w-full border rounded p-2 uppercase outline-none">
+              <span class="text-xs text-red-500 hidden id-err">身分證格式錯誤</span>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">出生日期 *</label>
+              <input type="date" id="student4Dob" class="calc-age w-full border rounded p-2 outline-none">
+            </div>
+          </div>
+        </section>
+
+        <!-- 其他同行親友 -->
+        <section class="space-y-3">
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 class="text-base font-bold text-emerald-800 border-l-4 border-emerald-600 pl-2">其他同行親友 (最多4位)</h2>
+              <span class="text-xs text-slate-500 pl-2">保險用，每位均需填寫姓名、證件號碼與生日</span>
+            </div>
+            <button type="button" id="addOtherBtn" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded transition">+ 新增親友</button>
+          </div>
+          <div id="othersContainer" class="space-y-3"></div>
+        </section>
+
+        <!-- 飲食習慣與用餐人數檢驗 -->
+        <section class="space-y-4 border-t pt-4 text-sm">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="font-medium">飲食習慣統計 *</label>
+              <span id="dietStatusText" class="text-xs text-emerald-600 font-semibold">餐數與總人數相符 (2 人)</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 border p-3 rounded-lg">
+              
+              <!-- 葷食 -->
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="dietMeatCheck" checked class="w-4 h-4 text-emerald-600 rounded">
+                <label for="dietMeatCheck" class="text-sm font-medium w-14">葷食：</label>
+                <div class="flex items-center space-x-1">
+                  <input type="number" id="dietMeatCount" min="0" value="2" class="w-16 border rounded p-1 text-center text-sm outline-none focus:ring-1 focus:ring-emerald-500">
+                  <span class="text-xs text-slate-500">人</span>
+                </div>
+              </div>
+
+              <!-- 素食 -->
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" id="dietVegCheck" class="w-4 h-4 text-emerald-600 rounded">
+                <label for="dietVegCheck" class="text-sm font-medium w-14">素食：</label>
+                <div class="flex items-center space-x-1">
+                  <input type="number" id="dietVegCount" min="0" value="0" disabled class="w-16 border rounded p-1 text-center text-sm outline-none bg-slate-100 disabled:opacity-50">
+                  <span class="text-xs text-slate-500">人</span>
+                </div>
+              </div>
+
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">※ 葷素總餐數應等於總報名人數。若有 未滿 3 歲免餐幼兒，總餐數可少於總人數。</p>
+          </div>
+
+          <div>
+            <label class="block mb-1 font-medium">備註 (特殊體質、過敏等需求，非必填，匯款者請留後五碼)</label>
+            <input type="text" id="notes" placeholder="無特殊需求可留空" class="w-full border rounded p-2 outline-none">
+          </div>
+        </section>
+
+        <!-- 結算欄位與送出按鈕 -->
+        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <div class="text-xs text-slate-600">總參加人數：<span id="displayCount" class="font-bold text-emerald-800 text-base">2</span> 人</div>
+            <div class="text-xs text-slate-600">預估費用總計：<span id="displayFee" class="font-bold text-emerald-800 text-lg">NT$ 2,320</span></div>
+          </div>
+          <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2 rounded-lg transition shadow">確認報名送出</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- 報名成功收據彈窗 (Modal) -->
+  <div id="receiptModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      
+      <div class="bg-emerald-600 p-4 text-white text-center">
+        <h3 class="text-xl font-bold">🎉 報名登記已成功送出</h3>
+        <p class="text-xs text-emerald-100 mt-1">報名資料已寫入，寄信結果請見下方明細。</p>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-sm">
+        
+        <!-- 大字報名編號區塊 -->
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-center">
+          <div class="text-xs font-semibold text-amber-800 uppercase tracking-wider">您的專屬報名編號</div>
+          <div id="modalSerial" class="text-4xl font-extrabold text-amber-600 my-1 font-mono tracking-wider">---</div>
+          <div class="text-xs text-amber-700">※ 若資料有誤需更動，請向工作人員告知此編號，由後台為您修改。</div>
+        </div>
+
+        <div>
+          <div class="font-bold text-slate-700 mb-2">📋 填寫收執存根：</div>
+          <div id="modalSummary" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs leading-relaxed font-mono whitespace-pre-wrap text-slate-700"></div>
+        </div>
+      </div>
+
+      <div class="border-t p-4 bg-slate-50 flex gap-2 justify-end">
+        <button id="copyBtn" class="border border-slate-300 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded text-xs transition">複製收據明細</button>
+        <button id="closeModalBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded text-xs font-semibold transition">確認並關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8HO0V08vRuG-TKAMEj7JcrePflnomOa4vZjKPM36koxRr-3bFzDmIOJX6PPJ-WxxK/exec";
+    const EVENT_DATE = new Date("2026-11-21");
+
+    function validateTwID(id) {
+      if (!/^[A-Z][12]\d{8}$/.test(id)) return false;
+      const letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+      const code = letters.indexOf(id[0]) + 10;
+      const w = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1];
+      const digits = [Math.floor(code / 10), code % 10, ...id.slice(1).split('').map(Number)];
+      return digits.reduce((sum, d, i) => sum + d * w[i], 0) % 10 === 0;
+    }
+
+    // 依活動日實歲計算；拒絕不存在或未來的生日。
+    function calculateAge(dobStr, defaultAge = 35) {
+      if (!dobStr) return defaultAge;
+      const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dobStr);
+      if (!m) return NaN;
+      const y=Number(m[1]), month=Number(m[2]), day=Number(m[3]);
+      const d=new Date(Date.UTC(y,month-1,day));
+      if(y<1900 || d.getUTCFullYear()!==y || d.getUTCMonth()!==month-1 || d.getUTCDate()!==day || dobStr>'2026-11-21') return NaN;
+      return 2026-y-((month>11 || (month===11 && day>21))?1:0);
+    }
+
+    // 最新計費標準
+    function getFeeByDob(dobStr, defaultAge = 35) {
+      const age = calculateAge(dobStr, defaultAge);
+      if (age < 3) return 0;           // 未滿3歲免費
+      if (age <= 6) return 300;        // 3-6歲 $300
+      if (age <= 12) return 1100;      // 7-12歲 $1,100
+      if (age >= 70) return 1100;      // 70歲以上敬老 $1,100
+      return 1220;                     // 13-69歲大人 $1,220
+    }
+
+    function validateArcID(id) {
+      const letters='ABCDEFGHJKLMNPQRSTUVXYWZIO';
+      const code=letters.indexOf(id[0])+10;
+      if (/^[A-Z][89]\d{8}$/.test(id)) {
+        return (Math.floor(code/10)+code%10*9+id.slice(1).split('').reduce((sum,n,i)=>sum+Number(n)*[8,7,6,5,4,3,2,1,1][i],0))%10===0;
+      }
+      if (!/^[A-Z][A-D]\d{8}$/.test(id)) return false;
+      return (Math.floor(code/10)+code%10*9+(letters.indexOf(id[1])+10)%10*8+id.slice(2).split('').reduce((sum,n,i)=>sum+Number(n)*[7,6,5,4,3,2,1,1][i],0))%10===0;
+    }
+    function normalizedDoc(value) {
+      return value.normalize('NFKC').trim().toUpperCase();
+    }
+    function activeDocGroup(group) {
+      if(group.dataset.prefix==='student1')return document.getElementById('hasStudent1').checked;
+      const match=/^student([234])$/.exec(group.dataset.prefix);
+      return !match || document.getElementById('hasStudent'+match[1]).checked;
+    }
+    function syncDocGroup(group) {
+      const active=activeDocGroup(group), type=group.querySelector('.doc-type').value;
+      group.querySelectorAll('input,select').forEach(el=>{el.disabled=!active;el.required=false;el.setCustomValidity('');});
+      group.querySelector('.doc-type').required=active;
+      group.querySelector('.doc-id').required=active;
+      const foreign=type!=='tw', passport=type==='passport';
+      group.querySelector('.nationality-field').hidden=!foreign;
+      group.querySelector('.confirm-field').hidden=!passport;
+      group.querySelector('.doc-nationality').disabled=!active||!foreign;
+      group.querySelector('.doc-nationality').required=active&&foreign;
+      group.querySelector('.doc-confirm').disabled=!active||!passport;
+      group.querySelector('.doc-confirm').required=active&&passport;
+      const input=group.querySelector('.doc-id');input.maxLength=passport?20:10;
+      input.placeholder=type==='tw'?'1碼英文＋9碼數字':type==='arc'?'新式1碼英文＋9碼數字／舊式2碼英文＋8碼數字':'依護照正本填寫4–20位英數字';
+      group.querySelector('.doc-hint').textContent=passport?'護照無通用檢查碼，請依正本核對並再次輸入；基本格式通過不代表證件真實。':type==='arc'?'支援新式及舊式居留證，會檢查格式與檢查碼。':'會檢查台灣身分證格式與檢查碼。';
+      group.querySelector('.id-err').classList.add('hidden');
+    }
+    function checkDocGroup(group,show=true) {
+      if(!activeDocGroup(group))return true;
+      const type=group.querySelector('.doc-type').value,input=group.querySelector('.doc-id'),confirm=group.querySelector('.doc-confirm'),nationality=group.querySelector('.doc-nationality');
+      input.value=normalizedDoc(input.value);confirm.value=normalizedDoc(confirm.value);
+      let error='';
+      if(!input.value)error='請填寫證件號碼。';
+      else if(type==='tw'&&!validateTwID(input.value))error='台灣身分證格式或檢查碼錯誤，請依正本核對。';
+      else if(type==='arc'&&!validateArcID(input.value))error='居留證格式或檢查碼錯誤，請確認新式／舊式號碼。';
+      else if(type==='passport'&&!/^[A-Z0-9]{4,20}$/.test(input.value))error='護照請填寫4至20位英數字，不可有空格或符號。';
+      input.setCustomValidity(error);
+      let confirmError=type==='passport'&&input.value!==confirm.value?'兩次護照號碼不一致，請重新核對。':'';
+      confirm.setCustomValidity(confirmError);
+      let countryError=type!=='tw'&&!nationality.value.trim()?'請填寫國籍。':'';
+      nationality.setCustomValidity(countryError);
+      const message=error||confirmError||countryError, span=group.querySelector('.id-err');
+      if(show){span.textContent=message;span.classList.toggle('hidden',!message);input.classList.toggle('border-red-500',!!error);confirm.classList.toggle('border-red-500',!!confirmError);}
+      return !message;
+    }
+    function mountDocumentFields(input,prefix) {
+      const group=input.parentElement;group.dataset.prefix=prefix;group.classList.add('doc-group','md:col-span-2');
+      const label=document.createElement('div');label.innerHTML=`
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div><label class="block mb-1 font-medium" for="${prefix}DocType">證件類型 *</label><select id="${prefix}DocType" class="doc-type w-full border rounded p-2"><option value="tw">台灣身分證</option><option value="passport">護照</option></select></div>
+          <div class="doc-number-slot"><label class="block mb-1 font-medium" for="${input.id}">證件號碼 *</label></div>
+          <div class="nationality-field" hidden><label class="block mb-1 font-medium" for="${prefix}Nationality">國籍 *</label><input id="${prefix}Nationality" class="doc-nationality w-full border rounded p-2" maxlength="60" placeholder="例如：日本、美國、越南"></div>
+          <div class="confirm-field" hidden><label class="block mb-1 font-medium" for="${prefix}PassportConfirm">再次輸入護照號碼 *</label><input id="${prefix}PassportConfirm" class="doc-confirm w-full border rounded p-2 uppercase" maxlength="20" autocomplete="off"></div>
+        </div><p class="doc-hint text-xs text-slate-500 mt-2"></p><span class="id-err text-sm text-red-600 hidden" role="alert"></span>`;
+      group.replaceChildren(...label.childNodes);input.classList.add('doc-id');input.setAttribute('autocapitalize','characters');input.setAttribute('spellcheck','false');group.querySelector('.doc-number-slot').appendChild(input);
+      group.querySelector('.doc-type').addEventListener('change',()=>{input.value='';group.querySelector('.doc-confirm').value='';syncDocGroup(group);});
+      group.querySelectorAll('input').forEach(el=>{
+        el.addEventListener('input',()=>{group.querySelectorAll('input').forEach(i=>i.setCustomValidity(''));group.querySelector('.id-err').classList.add('hidden');});
+        el.addEventListener('blur',()=>{if(input.value)checkDocGroup(group);});
+      });
+      syncDocGroup(group);
+    }
+    ['parent','student1','student2','student3','student4'].forEach(prefix=>mountDocumentFields(document.getElementById(prefix+'Id'),prefix));
+    document.querySelectorAll('input[type=date]').forEach(input=>{input.min='1900-01-01';input.max='2026-11-21';});
+    function documentExtra(prefix) {
+      return {docType:document.getElementById(prefix+'DocType').value,nationality:document.getElementById(prefix+'DocType').value==='tw'?'':document.getElementById(prefix+'Nationality').value.trim()};
+    }
+    // GitHub Pages向Apps Script送出後，等待真正的後端確認。
+    let registerPending=null;
+    window.addEventListener('message',event=>{
+      if(!(event.origin==='https://script.google.com'||/^https:\/\/[a-z0-9-]+\.googleusercontent\.com$/i.test(event.origin)))return;
+      const message=event.data;if(!registerPending||!message||message.channel!=='tour-desk-v2'||message.requestId!==registerPending.requestId)return;
+      const p=registerPending;registerPending=null;clearTimeout(p.timer);p.frame.remove();p.form.remove();
+      if(message.response&&message.response.result==='success')p.resolve(message.response);else p.reject(new Error(message.response&&message.response.message||'後端未確認報名成功。'));
+    });
+    function sendRegistration(payload) {
+      return new Promise((resolve,reject)=>{
+        const requestId=crypto.randomUUID(),frame=document.createElement('iframe'),form=document.createElement('form');frame.hidden=true;frame.name='register_'+requestId;frame.title='報名確認通道';document.body.appendChild(frame);
+        form.hidden=true;form.method='POST';form.action=SCRIPT_URL;form.target=frame.name;
+        const input=document.createElement('input');input.type='hidden';input.name='payload';input.value=JSON.stringify({...payload,action:'register',requestId,origin:location.origin});form.appendChild(input);document.body.appendChild(form);
+        const timer=setTimeout(()=>{registerPending=null;form.remove();frame.remove();reject(new Error('確認逾時，請稍後重試；會沿用同一筆請求，避免重複登記。'));},120000);
+        registerPending={requestId,resolve,reject,frame,form,timer};form.submit();
+      });
+    }
+    const tourForm=document.getElementById('tourForm');
+    tourForm.noValidate=true;
+    let pendingRegistrationId='';
+    try {pendingRegistrationId=sessionStorage.getItem('tour_registration_id')||'';} catch(e){}
+
+    const meatCheck = document.getElementById('dietMeatCheck');
+    const meatInput = document.getElementById('dietMeatCount');
+    const vegCheck = document.getElementById('dietVegCheck');
+    const vegInput = document.getElementById('dietVegCount');
+    const dietStatusText = document.getElementById('dietStatusText');
+
+    function checkDietMatch(totalPeople) {
+      const mCount = meatCheck.checked ? parseInt(meatInput.value || '0', 10) : 0;
+      const vCount = vegCheck.checked ? parseInt(vegInput.value || '0', 10) : 0;
+      const mealTotal = mCount + vCount;
+
+      if (mealTotal === totalPeople) {
+        dietStatusText.innerText = `餐數與總人數相符 (${mealTotal} 人)`;
+        dietStatusText.className = "text-xs text-emerald-600 font-semibold";
+      } else if (mealTotal < totalPeople) {
+        dietStatusText.innerText = `餐數少於總人數 (${mealTotal}/${totalPeople} 人，幼兒免餐)`;
+        dietStatusText.className = "text-xs text-amber-600 font-semibold";
+      } else {
+        dietStatusText.innerText = `餐數超過總人數 (${mealTotal}/${totalPeople} 人，格式錯誤)`;
+        dietStatusText.className = "text-xs text-red-600 font-semibold";
+      }
+      return { mealTotal, mCount, vCount };
+    }
+
+    function recalculate() {
+      let count = 1;
+      // 家長未填預設 35 歲 -> $1,220
+      let totalFee = document.getElementById('registrationRole').value==='teacher'?0:getFeeByDob(document.getElementById('parentDob').value, 35);
+
+      // 學生 1（必填）未填預設 10 歲 -> $1,100
+      if(document.getElementById('hasStudent1').checked){
+        count += 1;
+        totalFee += getFeeByDob(document.getElementById('student1Dob').value, 10);
+      }
+
+      // 學生 2
+      if (document.getElementById('hasStudent2').checked) {
+        count += 1;
+        totalFee += getFeeByDob(document.getElementById('student2Dob').value, 10);
+      }
+
+      // 學生 3
+      if (document.getElementById('hasStudent3').checked) {
+        count += 1;
+        totalFee += getFeeByDob(document.getElementById('student3Dob').value, 10);
+      }
+
+      // 學生 4
+      if (document.getElementById('hasStudent4').checked) {
+        count += 1;
+        totalFee += getFeeByDob(document.getElementById('student4Dob').value, 10);
+      }
+
+      // 同行親友未填預設 35 歲 -> $1,220
+      document.querySelectorAll('.other-person-card').forEach(card => {
+        count += 1;
+        totalFee += getFeeByDob(card.querySelector('.other-dob').value, 35);
+      });
+
+      document.getElementById('displayCount').innerText = count;
+      document.getElementById('displayFee').innerText = `NT$ ${totalFee.toLocaleString()}`;
+
+      checkDietMatch(count);
+      return { count, totalFee };
+    }
+
+    const student1Grid=document.getElementById('student1Name').closest('.grid');
+    function syncStudent1(){
+      const checked=document.getElementById('hasStudent1').checked;
+      student1Grid.hidden=!checked;
+      student1Grid.querySelectorAll('input,select').forEach(input=>{input.disabled=!checked;input.required=checked;input.setCustomValidity('');});
+      student1Grid.querySelectorAll('.doc-group').forEach(syncDocGroup);
+      recalculate();
+    }
+    function syncRegistrationRole(changed=false){
+      const teacher=document.getElementById('registrationRole').value==='teacher';
+      const oldCount=Number(document.getElementById('displayCount').textContent)||2;
+      document.getElementById('teacherStudentOption').hidden=!teacher;
+      if(teacher&&changed&&!document.getElementById('student1Name').value.trim())document.getElementById('hasStudent1').checked=false;
+      if(!teacher)document.getElementById('hasStudent1').checked=true;
+      const relation=document.getElementById('parentRelation');
+      if(teacher&&(!relation.value||relation.value==='父'||relation.value==='母'))relation.value='老師';
+      if(!teacher&&relation.value==='老師')relation.value='';
+      syncStudent1();
+      if(Number(meatInput.value)===oldCount&&Number(vegInput.value)===0){meatInput.value=recalculate().count;recalculate();}
+    }
+    document.getElementById('registrationRole').addEventListener('change',()=>syncRegistrationRole(true));
+    document.getElementById('hasStudent1').addEventListener('change',syncStudent1);
+
+    // 學生動態切換設置
+    [2, 3, 4].forEach(num => {
+      const checkbox = document.getElementById(`hasStudent${num}`);
+      const box = document.getElementById(`student${num}Box`);
+      checkbox.addEventListener('change', (e) => {
+        const inputs = box.querySelectorAll('input,select');
+        box.classList.toggle('hidden',!e.target.checked);
+        inputs.forEach(input=>{input.disabled=!e.target.checked;input.required=e.target.checked;if(!e.target.checked){input.setCustomValidity('');if(input.tagName==='SELECT')input.value='tw';else input.value='';}});
+        box.querySelectorAll('.doc-group').forEach(syncDocGroup);
+        recalculate();
+      });
+    });
+
+    // 飲食勾選監聽
+    meatCheck.addEventListener('change', () => {
+      meatInput.disabled = !meatCheck.checked;
+      meatInput.classList.toggle('bg-slate-100', !meatCheck.checked);
+      if (!meatCheck.checked) meatInput.value = 0;
+      recalculate();
+    });
+
+    vegCheck.addEventListener('change', () => {
+      vegInput.disabled = !vegCheck.checked;
+      vegInput.classList.toggle('bg-slate-100', !vegCheck.checked);
+      if (!vegCheck.checked) vegInput.value = 0;
+      recalculate();
+    });
+
+    meatInput.addEventListener('input', recalculate);
+    vegInput.addEventListener('input', recalculate);
+
+    // 親友動態增減 (最多 4 位)
+    let otherCount = 0;
+    document.getElementById('addOtherBtn').addEventListener('click', () => {
+      if (otherCount >= 4) {
+        alert('同行親友最多填寫 4 位。');
+        return;
+      }
+      otherCount++;
+      const container = document.getElementById('othersContainer');
+      const div = document.createElement('div');
+      div.className = 'other-person-card bg-slate-50 border p-3 rounded-lg relative space-y-2';
+      div.innerHTML = `
+        <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
+          <span>同行親友 ${otherCount}</span>
+          <button type="button" class="remove-btn text-red-500 hover:underline">移除</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-0.5">姓名 *</label>
+            <input type="text" placeholder="親友姓名" class="other-name border rounded p-1.5 text-xs w-full outline-none" required>
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-0.5">身分證字號 *</label>
+            <input type="text" placeholder="身分證字號" maxlength="10" class="other-id border rounded p-1.5 text-xs uppercase w-full outline-none" required>
+            <span class="text-xs text-red-500 hidden id-err">格式錯誤</span>
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-500 mb-0.5">出生日期 *</label>
+            <input type="date" class="other-dob calc-age border rounded p-1.5 text-xs w-full outline-none" required>
+          </div>
+        </div>
+      `;
+
+      div.querySelector('.remove-btn').addEventListener('click', () => {
+        div.remove();
+        otherCount--;
+        recalculate();
+      });
+
+      const otherId=div.querySelector('.other-id');otherId.id='otherId_'+crypto.randomUUID();
+      mountDocumentFields(otherId,'other_'+crypto.randomUUID());
+      div.querySelector('.other-dob').max='2026-11-21';
+      div.querySelector('.other-dob').min='1900-01-01';
+      div.querySelector('.other-dob').addEventListener('change', recalculate);
+      container.appendChild(div);
+      recalculate();
+    });
+
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('calc-age')) recalculate();
+    });
+
+    // 表單送出處理
+    document.getElementById('tourForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if(registerPending)return;
+
+      const { count, totalFee } = recalculate();
+
+      // 所有人依各自證件類型檢查；護照需二次輸入。
+      let valid=true;
+      document.querySelectorAll('.doc-group').forEach(group=>{if(!checkDocGroup(group))valid=false;});
+      const ids=new Set();
+      document.querySelectorAll('.doc-group').forEach(group=>{
+        if(!activeDocGroup(group))return;
+        const input=group.querySelector('.doc-id');
+        if(ids.has(input.value)&&input.value){input.setCustomValidity('同筆報名證件號碼重複，請核對。');valid=false;}ids.add(input.value);
+      });
+      document.querySelectorAll('input[type=date]:not(:disabled)').forEach(input=>{
+        input.setCustomValidity(input.value&&!Number.isFinite(calculateAge(input.value))?'出生日期無效。':'');
+      });
+      if(!tourForm.reportValidity()||!valid)return;
+      if(calculateAge(document.getElementById('parentDob').value)<18){alert('主要聯絡家長須為活動日滿18歲成人；請由成年聯絡人填寫。');return;}
+
+      // 2. 餐數比對檢驗
+      const { mealTotal, mCount, vCount } = checkDietMatch(count);
+      if (mealTotal > count) {
+        alert(`【飲食餐數錯誤】葷食與素食合計 ${mealTotal} 餐，已超過報名總人數 ${count} 人，請修正！`);
+        return;
+      }
+      if (mealTotal < count) {
+        const confirmLess = confirm(`目前葷素用餐總數為 ${mealTotal} 人，少於總報名人數 ${count} 人。\n\n若其中包含免用餐之 未滿 3 歲幼兒請點擊「確定」送出；否則請點擊「取消」進行修正。`);
+        if (!confirmLess) return;
+      }
+
+      const dates=[document.getElementById('parentDob').value];
+      if(document.getElementById('hasStudent1').checked)dates.push(document.getElementById('student1Dob').value);
+      [2,3,4].forEach(n=>{if(document.getElementById('hasStudent'+n).checked)dates.push(document.getElementById('student'+n+'Dob').value);});
+      document.querySelectorAll('.other-dob').forEach(input=>dates.push(input.value));
+      const mandatory=dates.filter(dob=>calculateAge(dob)>=3).length;
+      if(!Number.isInteger(mCount)||!Number.isInteger(vCount)||mCount<0||vCount<0||mealTotal<mandatory){alert('餐數有誤：年滿3歲者每人需一餐，只有未滿3歲幼兒可免餐。');return;}
+
+      // 3. 提取親友 1~4
+      const cards = document.querySelectorAll('.other-person-card');
+      const otherObjects = [null, null, null, null];
+      cards.forEach((card, idx) => {
+        if (idx < 4) {
+          otherObjects[idx] = {
+            name: card.querySelector('.other-name').value.trim(),
+            id: card.querySelector('.other-id').value.trim().toUpperCase(),
+            dob: card.querySelector('.other-dob').value,
+            docType: card.querySelector('.doc-type').value,
+            nationality: card.querySelector('.doc-type').value==='tw'?'':card.querySelector('.doc-nationality').value.trim()
+          };
+        }
+      });
+
+      if(!pendingRegistrationId)pendingRegistrationId=crypto.randomUUID();
+      try {sessionStorage.setItem('tour_registration_id',pendingRegistrationId);}catch(e){}
+
+      const payload = {
+        submissionId: pendingRegistrationId,
+        registrationRole: document.getElementById('registrationRole').value,
+        parentName: document.getElementById('parentName').value.trim(),
+        parentRelation: document.getElementById('parentRelation').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        parentEmail: document.getElementById('parentEmail').value.trim(),
+        parentId: document.getElementById('parentId').value.trim().toUpperCase(),
+        parentDob: document.getElementById('parentDob').value,
+        student1Name: document.getElementById('hasStudent1').checked ? document.getElementById('student1Name').value.trim() : "無",
+        student1Class: document.getElementById('hasStudent1').checked ? document.getElementById('student1Class').value.trim() : "無",
+        student1Id: document.getElementById('hasStudent1').checked ? document.getElementById('student1Id').value.trim().toUpperCase() : "無",
+        student1Dob: document.getElementById('hasStudent1').checked ? document.getElementById('student1Dob').value : "無",
+        student2Name: document.getElementById('hasStudent2').checked ? document.getElementById('student2Name').value.trim() : "無",
+        student2Class: document.getElementById('hasStudent2').checked ? document.getElementById('student2Class').value.trim() : "無",
+        student2Id: document.getElementById('hasStudent2').checked ? document.getElementById('student2Id').value.trim().toUpperCase() : "無",
+        student2Dob: document.getElementById('hasStudent2').checked ? document.getElementById('student2Dob').value : "無",
+        student3Name: document.getElementById('hasStudent3').checked ? document.getElementById('student3Name').value.trim() : "無",
+        student3Class: document.getElementById('hasStudent3').checked ? document.getElementById('student3Class').value.trim() : "無",
+        student3Id: document.getElementById('hasStudent3').checked ? document.getElementById('student3Id').value.trim().toUpperCase() : "無",
+        student3Dob: document.getElementById('hasStudent3').checked ? document.getElementById('student3Dob').value : "無",
+        student4Name: document.getElementById('hasStudent4').checked ? document.getElementById('student4Name').value.trim() : "無",
+        student4Class: document.getElementById('hasStudent4').checked ? document.getElementById('student4Class').value.trim() : "無",
+        student4Id: document.getElementById('hasStudent4').checked ? document.getElementById('student4Id').value.trim().toUpperCase() : "無",
+        student4Dob: document.getElementById('hasStudent4').checked ? document.getElementById('student4Dob').value : "無",
+        other1: otherObjects[0],
+        other2: otherObjects[1],
+        other3: otherObjects[2],
+        other4: otherObjects[3],
+        meatCount: mCount,
+        vegCount: vCount,
+        totalHeadcount: count,
+        estimatedFee: totalFee,
+        dietPreference: `葷食 ${mCount} 人 / 素食 ${vCount} 人 (共 ${mealTotal} 餐)`,
+        notes: document.getElementById('notes').value.trim() || "無"
+      };
+
+      ['parent','student1','student2','student3','student4'].forEach(prefix=>{
+        const extra=documentExtra(prefix);payload[prefix+'DocType']=extra.docType;payload[prefix+'Nationality']=extra.nationality;
+      });
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = "資料送出中，請稍候...";
+
+      try {
+        const result=await sendRegistration(payload);
+        payload.totalHeadcount=result.totalHeadcount;
+        payload.estimatedFee=result.estimatedFee;
+        const subtitle=document.querySelector('#receiptModal h3 + p');
+        if(subtitle)subtitle.textContent=result.emailSent?'報名已登記，確認信已交付寄送，請查看收件匣與垃圾郵件。':'報名已登記；確認信未寄出或為重試查詢，請保留編號，勿重複報名。';
+        showReceiptModal(result.serialNumber,payload);
+        pendingRegistrationId='';try{sessionStorage.removeItem('tour_registration_id');}catch(e){}
+        document.getElementById('tourForm').reset();
+        document.getElementById('othersContainer').innerHTML = '';
+        [2, 3, 4].forEach(num => {
+          document.getElementById(`hasStudent${num}`).checked = false;
+          document.getElementById(`student${num}Box`).classList.add('hidden');
+        });
+        otherCount = 0;
+        syncRegistrationRole();
+        [2,3,4].forEach(n=>document.getElementById('student'+n+'Box').querySelectorAll('input,select').forEach(el=>{el.disabled=true;el.required=false;el.setCustomValidity('');}));
+        document.querySelectorAll('.doc-group').forEach(syncDocGroup);
+        document.getElementById('dietVegCount').disabled=true;
+        document.getElementById('dietMeatCount').disabled=false;
+        recalculate();
+      } catch (err) {
+        alert('未能確認報名成功：'+(err.message||String(err))+'\n資料已保留，請修正或稍後重試。');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "確認報名送出";
+      }
+    });
+
+    function showReceiptModal(serial, data) {
+      document.getElementById('modalSerial').innerText = serial;
+      document.getElementById('modalSerial').style.cssText='font-size:18px;overflow-wrap:anywhere';
+
+      let summary = `【報名編號】${serial}\n`;
+      summary += `【活動名稱】11/21 頭城農場親子遊\n`;
+      summary += `【報名身分】${data.registrationRole==='teacher'?'老師（本人免費）':'家長'}\n`;
+      summary += `【家長聯絡人】${data.parentName} (${data.parentRelation}) ｜ 手機：${data.parentPhone}\n`;
+      summary += `【收據信箱】${data.parentEmail}\n`;
+      summary += `【證件/生日】${data.parentId} ｜ ${data.parentDob}\n`;
+      summary += `【證件類型／國籍】${({tw:"台灣身分證",arc:"居留證",passport:"護照"})[data.parentDocType]}／${data.parentNationality||"臺灣"}\n`;
+      summary += `------------------------------------\n`;
+      if(data.student1Name&&data.student1Name!=='無')summary += `【學生 1】${data.student1Name} (${data.student1Class}) ｜ ${data.student1Id} ｜ ${data.student1Dob}\n`;
+      
+      [2, 3, 4].forEach(num => {
+        const sName = data[`student${num}Name`];
+        if (sName && sName !== "無") {
+          summary += `【學生 ${num}】${sName} (${data[`student${num}Class`]}) ｜ ${data[`student${num}Id`]} ｜ ${data[`student${num}Dob`]}\n`;
+        }
+      });
+
+      [data.other1, data.other2, data.other3, data.other4].forEach((o, idx) => {
+        if (o && o.name) {
+          summary += `【同行親友 ${idx+1}】${o.name} ｜ ${o.id} ｜ ${o.dob}\n`;
+        }
+      });
+      
+      summary += `------------------------------------\n`;
+      summary += `【參加總人數】${data.totalHeadcount} 人\n`;
+      summary += `【預估總費用】NT$ ${data.estimatedFee.toLocaleString()} 元\n`;
+      summary += `【飲食統計】${data.dietPreference}\n`;
+      if (data.notes && data.notes !== "無") summary += `【備註】${data.notes}\n`;
+
+      document.getElementById('modalSummary').innerText = summary;
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+      document.getElementById('receiptModal').classList.add('hidden');
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const text = document.getElementById('modalSummary').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('報名收據明細已成功複製！');
+      });
+    });
+
+    [2,3,4].forEach(n=>{document.getElementById("student"+n+"Box").querySelectorAll("input,select").forEach(el=>el.disabled=true);});
+    syncRegistrationRole();
+    recalculate();
+  </script>
+</body>
+</html>
